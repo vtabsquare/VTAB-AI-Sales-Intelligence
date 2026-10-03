@@ -2795,6 +2795,8 @@ def dashboard(
 
     return {
 
+        "demo_mode": settings.demo_mode,
+
         "opportunities":
 
             total,
