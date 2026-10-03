@@ -1,0 +1,58 @@
+# Native runtimes only. Existing remote SQL Server; no provisioned database.
+services:
+  - type: web
+    name: vtab-ai-sales-api
+    runtime: python
+    plan: free
+    region: singapore
+    branch: main
+    rootDir: backend
+    buildCommand: pip install -r requirements-render.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: LOGIN_EMAIL
+        sync: false
+      - key: LOGIN_PASSWORD
+        sync: false
+      - key: DEMO_AUTH
+        value: "false"
+      - key: DEMO_MODE
+        value: "true"
+      - key: INITIALIZE_SCHEMA
+        value: "false"
+      - key: SCHEDULER_ENABLED
+        value: "false"
+      - key: MICROSOFT_TENANT_ID
+        sync: false
+      - key: MICROSOFT_CLIENT_ID
+        sync: false
+      - key: MICROSOFT_CLIENT_SECRET
+        sync: false
+      - key: MICROSOFT_SENDER_EMAIL
+        sync: false
+  - type: web
+    name: vtab-ai-sales-intelligence
+    runtime: node
+    plan: free
+    region: singapore
+    branch: main
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    startCommand: npm start -- --hostname 0.0.0.0 --port $PORT
+    healthCheckPath: /login
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: API_BASE_URL
+        sync: false

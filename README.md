@@ -36,3 +36,6 @@ Discovery → Opportunities → select a record → Run / resume to approval →
 37 backend tests, 25 clean-build browser checks, TypeScript and production build passed. Live Microsoft 365 and your existing SQL Server migration/connection acceptance remain pending. Docker/PostgreSQL validation is not a release requirement.
 See [validation](docs/PHASE-1-VALIDATION.md), [local setup](docs/local-development.md), [database](docs/database-schema.md), [security](docs/security.md), [agent design](docs/agent-design.md) and [feature boundary](docs/requirements-status.md).
 The master prompt is preserved for reference; your Windows-native/no-Docker instruction takes precedence over its generic stack suggestions. Entra SSO/RBAC, vector retrieval and later-phase modules remain future work.
+
+## Read-only live validation on your Windows PC
+Run `scripts\validate-live-windows.bat` from your checkout. It reads the private backend/.env, checks SQL connectivity and required tables/columns, authenticates with Microsoft Graph and checks Inbox read access. It never sends mail, modifies mailbox messages or changes the database. Results are saved to validation/live-validation-result.json; credentials, tokens and email contents are excluded. This checks connectivity/schema/read permissions; full inbox import, deduplication and reply matching still require application acceptance.

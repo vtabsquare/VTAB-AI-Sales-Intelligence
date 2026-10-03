@@ -14,3 +14,5 @@ node_modules/
 validation/screenshots/
 !**/.env.local.example
 node_modules
+
+validation/live-validation-result.json
