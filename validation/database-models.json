@@ -1,0 +1,1026 @@
+{
+  "companies": [
+    {
+      "name": "id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "name",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "website",
+      "type": "VARCHAR(255)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "country",
+      "type": "VARCHAR(255)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "description",
+      "type": "TEXT",
+      "nullable": true,
+      "primary_key": false
+    }
+  ],
+  "opportunities": [
+    {
+      "name": "id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "company_id",
+      "type": "VARCHAR(255)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "title",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "reference_number",
+      "type": "VARCHAR(255)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "source_name",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "source_url",
+      "type": "VARCHAR(2048)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "country",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "published_date",
+      "type": "DATE",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "closing_date",
+      "type": "DATE",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "description",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "qualification_score",
+      "type": "INTEGER",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "qualification_status",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "business_fit",
+      "type": "VARCHAR(255)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "pipeline_status",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "matched_services",
+      "type": "JSON",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "relevance_reason",
+      "type": "TEXT",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "contacts": [
+    {
+      "name": "id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "company_id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "full_name",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "title",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "email",
+      "type": "VARCHAR(255)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "email_verification_status",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "do_not_contact",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "outreach_drafts": [
+    {
+      "name": "id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "opportunity_id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "contact_id",
+      "type": "VARCHAR(255)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "subject",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "body_text",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "status",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "agent_runs": [
+    {
+      "name": "id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "agent_name",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "input_json",
+      "type": "JSON",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "output_json",
+      "type": "JSON",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "status",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "duration_ms",
+      "type": "INTEGER",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "suppression_list": [
+    {
+      "name": "id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "email",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "reason",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "communications": [
+    {
+      "name": "id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "opportunity_id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "direction",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "subject",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "body",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "status",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "knowledge_documents": [
+    {
+      "name": "id",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "title",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "category",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "content",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "approved",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "mail_sync_states": [
+    {
+      "name": "id",
+      "type": "VARCHAR(36)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "mailbox",
+      "type": "VARCHAR(320)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "delta_link",
+      "type": "TEXT",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "last_synced_at",
+      "type": "DATETIME",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "last_error",
+      "type": "TEXT",
+      "nullable": true,
+      "primary_key": false
+    }
+  ],
+  "inbound_responses": [
+    {
+      "name": "id",
+      "type": "VARCHAR(36)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "graph_message_id",
+      "type": "VARCHAR(512)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "internet_message_id",
+      "type": "VARCHAR(1024)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "opportunity_id",
+      "type": "VARCHAR(36)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "outreach_draft_id",
+      "type": "VARCHAR(36)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "sender_name",
+      "type": "VARCHAR(255)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "sender_email",
+      "type": "VARCHAR(320)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "subject",
+      "type": "VARCHAR(1000)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "body_text",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "received_at",
+      "type": "DATETIME",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "classification",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "sentiment",
+      "type": "VARCHAR(32)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "summary",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "suggested_action",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "suggested_reply",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "confidence",
+      "type": "INTEGER",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "review_required",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "processed_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "follow_up_tasks": [
+    {
+      "name": "id",
+      "type": "VARCHAR(36)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "opportunity_id",
+      "type": "VARCHAR(36)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "outreach_draft_id",
+      "type": "VARCHAR(36)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "response_id",
+      "type": "VARCHAR(36)",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "status",
+      "type": "VARCHAR(32)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "action_type",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "due_at",
+      "type": "DATETIME",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "reason",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "draft_subject",
+      "type": "VARCHAR(1000)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "draft_body",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "human_approved",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "service_portfolios": [
+    {
+      "name": "id",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "name",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "category",
+      "type": "VARCHAR(120)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "description",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "keywords",
+      "type": "JSON",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "target_buyers",
+      "type": "JSON",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "active",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "discovery_sources": [
+    {
+      "name": "id",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "name",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "source_type",
+      "type": "VARCHAR(50)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "base_url",
+      "type": "VARCHAR(2048)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "countries",
+      "type": "JSON",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "active",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "resource_links": [
+    {
+      "name": "id",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "title",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "resource_type",
+      "type": "VARCHAR(100)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "url",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "description",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "tags",
+      "type": "JSON",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "active",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "email_templates": [
+    {
+      "name": "id",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "name",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "subject",
+      "type": "VARCHAR(500)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "body_html",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "purpose",
+      "type": "VARCHAR(100)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "active",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "company_assets": [
+    {
+      "name": "id",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "name",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "asset_type",
+      "type": "VARCHAR(100)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "url",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "description",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "active",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "scheduled_workflows": [
+    {
+      "name": "id",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "name",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "action_type",
+      "type": "VARCHAR(100)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "interval_minutes",
+      "type": "INTEGER",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "timezone",
+      "type": "VARCHAR(100)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "run_at_time",
+      "type": "VARCHAR(5)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "enabled",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "last_run_at",
+      "type": "DATETIME",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "next_run_at",
+      "type": "DATETIME",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "last_status",
+      "type": "VARCHAR(100)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "last_result",
+      "type": "JSON",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "workflow_run_history": [
+    {
+      "name": "id",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "workflow_id",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "workflow_name",
+      "type": "VARCHAR(255)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "action_type",
+      "type": "VARCHAR(100)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "status",
+      "type": "VARCHAR(50)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "started_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "finished_at",
+      "type": "DATETIME",
+      "nullable": true,
+      "primary_key": false
+    },
+    {
+      "name": "duration_ms",
+      "type": "INTEGER",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "result",
+      "type": "JSON",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "error",
+      "type": "TEXT",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "auth_otp_challenges": [
+    {
+      "name": "id",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "email",
+      "type": "VARCHAR(320)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "otp_hash",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "expires_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "attempt_count",
+      "type": "INTEGER",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "used",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "created_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    }
+  ],
+  "auth_sessions": [
+    {
+      "name": "token_hash",
+      "type": "VARCHAR(64)",
+      "nullable": false,
+      "primary_key": true
+    },
+    {
+      "name": "email",
+      "type": "VARCHAR(320)",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "expires_at",
+      "type": "DATETIME",
+      "nullable": false,
+      "primary_key": false
+    },
+    {
+      "name": "revoked",
+      "type": "BOOLEAN",
+      "nullable": false,
+      "primary_key": false
+    }
+  ]
+}

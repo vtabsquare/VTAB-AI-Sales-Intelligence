@@ -1,0 +1,16 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+*.db
+node_modules/
+.next/
+
+.env.*
+!.env.example
+!**/.env.example
+*.log
+*.tsbuildinfo
+validation/screenshots/
+!**/.env.local.example
+node_modules

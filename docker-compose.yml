@@ -1,0 +1,14 @@
+# Optional containers. Windows-native SQL Server startup is the validated target.
+# Configure DATABASE_URL to a SQL Server host reachable from the backend container.
+# The backend image additionally needs an installed Microsoft SQL Server ODBC driver.
+services:
+  backend:
+    build: ./backend
+    env_file: ./backend/.env
+    ports: ["8001:8001"]
+  frontend:
+    build: ./frontend
+    environment:
+      API_BASE_URL: http://backend:8001
+    ports: ["3000:3000"]
+    depends_on: [backend]

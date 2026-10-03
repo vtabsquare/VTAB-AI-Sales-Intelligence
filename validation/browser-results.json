@@ -1,0 +1,1195 @@
+{
+  "results": [
+    {
+      "test": "Unauthenticated protected route redirect",
+      "status": "PASS"
+    },
+    {
+      "test": "Password rejection",
+      "status": "PASS"
+    },
+    {
+      "test": "Login OTP proxy HttpOnly cookie and return URL",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /discovery",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /opportunities",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /approval",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /outreach",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /workflow",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /responses",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /response-center",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /pipeline",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /agents",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /templates",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /portfolio",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /resources",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /job-monitor",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /schedulers",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /security",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /admin",
+      "status": "PASS"
+    },
+    {
+      "test": "Refresh preserves session",
+      "status": "PASS"
+    },
+    {
+      "test": "Navigation, mode and admin layout 1280x720",
+      "status": "PASS"
+    },
+    {
+      "test": "Navigation, mode and admin layout 1024x600",
+      "status": "PASS"
+    },
+    {
+      "test": "Navigation, mode and admin layout 960x480",
+      "status": "PASS"
+    },
+    {
+      "test": "Navigation, mode and admin layout 768x650",
+      "status": "PASS"
+    },
+    {
+      "test": "Navigation, mode and admin layout 390x844",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /discovery",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /opportunities",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /approval",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /outreach",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /workflow",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /responses",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /response-center",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /pipeline",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /agents",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /templates",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /portfolio",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /resources",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /job-monitor",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /schedulers",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /security",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /admin",
+      "status": "PASS"
+    },
+    {
+      "test": "Unavailable mode is shown as unknown, never live",
+      "status": "PASS"
+    },
+    {
+      "test": "Templates save and list",
+      "status": "PASS"
+    },
+    {
+      "test": "Template tabs preview and local generation",
+      "status": "PASS"
+    },
+    {
+      "test": "Portfolio add",
+      "status": "PASS"
+    },
+    {
+      "test": "Resources add",
+      "status": "PASS"
+    },
+    {
+      "test": "Discovery source add and run",
+      "status": "PASS"
+    },
+    {
+      "test": "Opportunity review qualification research contact and draft actions",
+      "status": "PASS"
+    },
+    {
+      "test": "Approval edit and approve without sending",
+      "status": "PASS"
+    },
+    {
+      "test": "Manual recipient test verification final confirmation simulated send",
+      "status": "PASS"
+    },
+    {
+      "test": "Inbox sync reply detail filters reprocess follow-up approve and draft",
+      "status": "PASS"
+    },
+    {
+      "test": "Follow-up draft rejection",
+      "status": "PASS"
+    },
+    {
+      "test": "Human recipient evidence review enables only separately confirmed sending",
+      "status": "PASS"
+    },
+    {
+      "test": "Scheduler create manual run and job history refresh",
+      "status": "PASS"
+    },
+    {
+      "test": "Pipeline refresh and agent log filter",
+      "status": "PASS"
+    },
+    {
+      "test": "Integration connection test and refresh using mocked Graph",
+      "status": "PASS"
+    },
+    {
+      "test": "Workflow shortcut navigation",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /templates",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /portfolio",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /resources",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /schedulers",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /job-monitor",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /discovery",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /opportunities",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /agents",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /outreach",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /approval",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /responses",
+      "status": "PASS"
+    },
+    {
+      "test": "Backend error is visible without React crash",
+      "status": "PASS"
+    },
+    {
+      "test": "Actual browser refresh keeps session",
+      "status": "PASS"
+    },
+    {
+      "test": "Proxy cross-origin mutation rejected",
+      "status": "PASS"
+    },
+    {
+      "test": "Backend and frontend clean restart preserve durable session",
+      "status": "PASS"
+    },
+    {
+      "test": "Logout revokes session stale cookie redirects and login stays reachable",
+      "status": "PASS"
+    },
+    {
+      "test": "No browser runtime/console exceptions",
+      "status": "PASS"
+    }
+  ],
+  "browser_errors": [],
+  "network": [
+    {
+      "url": "/backend-api/auth/login",
+      "status": 401
+    },
+    {
+      "url": "/backend-api/auth/login",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/auth/verify",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/auth/session",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/templates",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/sources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/discovery/queries",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/approval-queue",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/send-center",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/agent-runs",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/templates",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/services",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/resources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedule-history/all?limit=300",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedules",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/auth/session",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/sources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/discovery/queries",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/approval-queue",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/send-center",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/agent-runs",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/templates",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/services",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/resources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedule-history/all?limit=300",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedules",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/auth/session",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 503
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/templates",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/templates",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/templates",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/templates/generate",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/services",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/services",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/services",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/resources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/resources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/resources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/sources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/discovery/queries",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/sources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/sources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/discovery/queries",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/discovery/run",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities/2a59a957-21d6-4284-9af5-290917c5b608/qualify",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities/2a59a957-21d6-4284-9af5-290917c5b608/research",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities/2a59a957-21d6-4284-9af5-290917c5b608/find-contact",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/approval-queue",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/12bc1cec-80a6-4754-a6d4-4af51580a309",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/approval-queue",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/12bc1cec-80a6-4754-a6d4-4af51580a309/approve",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/approval-queue",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/send-center",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/12bc1cec-80a6-4754-a6d4-4af51580a309/recipient",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/send-center",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/12bc1cec-80a6-4754-a6d4-4af51580a309/test-verify-recipient",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/send-center",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses/sync",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses/reprocess",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups/1e888034-296b-437e-89b9-4898a09e4e84/approve",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups/1e888034-296b-437e-89b9-4898a09e4e84/prepare-outreach",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/approval-queue",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/04164afc-7a5f-4c1e-9e99-ed581ba2a390/reject",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/approval-queue",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/approval-queue",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/c7b6f225-df6c-44c0-9553-ed9a8d2d302c/approve",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/approval-queue",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/send-center",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/c7b6f225-df6c-44c0-9553-ed9a8d2d302c/recipient",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/send-center",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/c7b6f225-df6c-44c0-9553-ed9a8d2d302c/confirm-recipient-evidence",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/send-center",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedules",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedules",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedules",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedules/dc000ffa-1306-4537-8e9f-a84ea0130a9d/run",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedule-history/all?limit=300",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedule-history/all?limit=300",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/agent-runs",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/test",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/templates",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/templates",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/services",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/resources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedules",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/schedule-history/all?limit=300",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/sources",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/discovery/queries",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/opportunities",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/agent-runs",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/send-center",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/outreach/approval-queue",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/responses",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/pipeline",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/follow-ups",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/platform/templates",
+      "status": 500
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/integrations/microsoft/status",
+      "status": 200
+    },
+    {
+      "url": "/backend-api/auth/logout",
+      "status": 200
+    }
+  ]
+}

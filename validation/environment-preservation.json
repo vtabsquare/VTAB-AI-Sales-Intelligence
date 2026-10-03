@@ -1,0 +1,10 @@
+[
+  {
+    "file": "backend/.env",
+    "unchanged": true
+  },
+  {
+    "file": "frontend/.env.local",
+    "unchanged": true
+  }
+]

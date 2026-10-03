@@ -1,0 +1,16 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+pyodbc>=5.1,<6
+pydantic-settings==2.7.0
+alembic==1.14.0
+celery==5.4.0
+redis==5.2.1
+httpx==0.28.1
+python-multipart==0.0.20
+email-validator>=2.2,<3
+dnspython>=2.7,<3
+pytest==8.3.4
+
+apscheduler==3.10.4
+tzdata>=2024.2

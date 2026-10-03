@@ -1,0 +1,1 @@
+'use client';export default function ErrorPage({reset}:{error:Error;reset:()=>void}){return <section className="vtab-alert error" role="alert"><h2>Workspace data is unavailable</h2><p>Please check the backend connection and database schema, then retry.</p><button onClick={reset}>Retry</button></section>}

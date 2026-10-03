@@ -1,0 +1,2 @@
+# Security
+Human approval is mandatory before outbound send. Demo mode cannot make live sends. No credentials are committed. External web/email/document content is untrusted. Contacts cannot be invented. Suppression is a deterministic control. Production requires Entra OAuth, RBAC (Admin/Sales Manager/Sales User/Viewer), Key Vault/secret store, HTTPS, least-privilege Graph permissions, rate limits and regional compliance policies.

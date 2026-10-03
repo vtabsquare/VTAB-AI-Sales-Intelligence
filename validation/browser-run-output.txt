@@ -1,0 +1,385 @@
+PASS Unauthenticated protected route redirect
+PASS Password rejection
+PASS Login OTP proxy HttpOnly cookie and return URL
+PASS Page /
+PASS Page /discovery
+PASS Page /opportunities
+PASS Page /approval
+PASS Page /outreach
+PASS Page /workflow
+PASS Page /responses
+PASS Page /response-center
+PASS Page /pipeline
+PASS Page /agents
+PASS Page /templates
+PASS Page /portfolio
+PASS Page /resources
+PASS Page /job-monitor
+PASS Page /schedulers
+PASS Page /security
+PASS Page /admin
+PASS Refresh preserves session
+PASS Navigation, mode and admin layout 1280x720
+PASS Navigation, mode and admin layout 1024x600
+PASS Navigation, mode and admin layout 960x480
+PASS Navigation, mode and admin layout 768x650
+PASS Navigation, mode and admin layout 390x844
+PASS Mobile page /
+PASS Mobile page /discovery
+PASS Mobile page /opportunities
+PASS Mobile page /approval
+PASS Mobile page /outreach
+PASS Mobile page /workflow
+PASS Mobile page /responses
+PASS Mobile page /response-center
+PASS Mobile page /pipeline
+PASS Mobile page /agents
+PASS Mobile page /templates
+PASS Mobile page /portfolio
+PASS Mobile page /resources
+PASS Mobile page /job-monitor
+PASS Mobile page /schedulers
+PASS Mobile page /security
+PASS Mobile page /admin
+PASS Unavailable mode is shown as unknown, never live
+PASS Templates save and list
+PASS Template tabs preview and local generation
+PASS Portfolio add
+PASS Resources add
+PASS Discovery source add and run
+PASS Opportunity review qualification research contact and draft actions
+PASS Approval edit and approve without sending
+PASS Manual recipient test verification final confirmation simulated send
+PASS Inbox sync reply detail filters reprocess follow-up approve and draft
+PASS Follow-up draft rejection
+PASS Human recipient evidence review enables only separately confirmed sending
+PASS Scheduler create manual run and job history refresh
+PASS Pipeline refresh and agent log filter
+PASS Integration connection test and refresh using mocked Graph
+PASS Workflow shortcut navigation
+PASS Malformed response resilience /templates
+PASS Malformed response resilience /portfolio
+PASS Malformed response resilience /resources
+PASS Malformed response resilience /schedulers
+PASS Malformed response resilience /job-monitor
+PASS Malformed response resilience /discovery
+PASS Malformed response resilience /opportunities
+PASS Malformed response resilience /agents
+PASS Malformed response resilience /outreach
+PASS Malformed response resilience /approval
+PASS Malformed response resilience /responses
+PASS Backend error is visible without React crash
+PASS Actual browser refresh keeps session
+PASS Proxy cross-origin mutation rejected
+PASS Backend and frontend clean restart preserve durable session
+PASS Logout revokes session stale cookie redirects and login stays reachable
+PASS No browser runtime/console exceptions
+{
+  "results": [
+    {
+      "test": "Unauthenticated protected route redirect",
+      "status": "PASS"
+    },
+    {
+      "test": "Password rejection",
+      "status": "PASS"
+    },
+    {
+      "test": "Login OTP proxy HttpOnly cookie and return URL",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /discovery",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /opportunities",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /approval",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /outreach",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /workflow",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /responses",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /response-center",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /pipeline",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /agents",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /templates",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /portfolio",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /resources",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /job-monitor",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /schedulers",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /security",
+      "status": "PASS"
+    },
+    {
+      "test": "Page /admin",
+      "status": "PASS"
+    },
+    {
+      "test": "Refresh preserves session",
+      "status": "PASS"
+    },
+    {
+      "test": "Navigation, mode and admin layout 1280x720",
+      "status": "PASS"
+    },
+    {
+      "test": "Navigation, mode and admin layout 1024x600",
+      "status": "PASS"
+    },
+    {
+      "test": "Navigation, mode and admin layout 960x480",
+      "status": "PASS"
+    },
+    {
+      "test": "Navigation, mode and admin layout 768x650",
+      "status": "PASS"
+    },
+    {
+      "test": "Navigation, mode and admin layout 390x844",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /discovery",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /opportunities",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /approval",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /outreach",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /workflow",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /responses",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /response-center",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /pipeline",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /agents",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /templates",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /portfolio",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /resources",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /job-monitor",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /schedulers",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /security",
+      "status": "PASS"
+    },
+    {
+      "test": "Mobile page /admin",
+      "status": "PASS"
+    },
+    {
+      "test": "Unavailable mode is shown as unknown, never live",
+      "status": "PASS"
+    },
+    {
+      "test": "Templates save and list",
+      "status": "PASS"
+    },
+    {
+      "test": "Template tabs preview and local generation",
+      "status": "PASS"
+    },
+    {
+      "test": "Portfolio add",
+      "status": "PASS"
+    },
+    {
+      "test": "Resources add",
+      "status": "PASS"
+    },
+    {
+      "test": "Discovery source add and run",
+      "status": "PASS"
+    },
+    {
+      "test": "Opportunity review qualification research contact and draft actions",
+      "status": "PASS"
+    },
+    {
+      "test": "Approval edit and approve without sending",
+      "status": "PASS"
+    },
+    {
+      "test": "Manual recipient test verification final confirmation simulated send",
+      "status": "PASS"
+    },
+    {
+      "test": "Inbox sync reply detail filters reprocess follow-up approve and draft",
+      "status": "PASS"
+    },
+    {
+      "test": "Follow-up draft rejection",
+      "status": "PASS"
+    },
+    {
+      "test": "Human recipient evidence review enables only separately confirmed sending",
+      "status": "PASS"
+    },
+    {
+      "test": "Scheduler create manual run and job history refresh",
+      "status": "PASS"
+    },
+    {
+      "test": "Pipeline refresh and agent log filter",
+      "status": "PASS"
+    },
+    {
+      "test": "Integration connection test and refresh using mocked Graph",
+      "status": "PASS"
+    },
+    {
+      "test": "Workflow shortcut navigation",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /templates",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /portfolio",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /resources",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /schedulers",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /job-monitor",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /discovery",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /opportunities",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /agents",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /outreach",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /approval",
+      "status": "PASS"
+    },
+    {
+      "test": "Malformed response resilience /responses",
+      "status": "PASS"
+    },
+    {
+      "test": "Backend error is visible without React crash",
+      "status": "PASS"
+    },
+    {
+      "test": "Actual browser refresh keeps session",
+      "status": "PASS"
+    },
+    {
+      "test": "Proxy cross-origin mutation rejected",
+      "status": "PASS"
+    },
+    {
+      "test": "Backend and frontend clean restart preserve durable session",
+      "status": "PASS"
+    },
+    {
+      "test": "Logout revokes session stale cookie redirects and login stays reachable",
+      "status": "PASS"
+    },
+    {
+      "test": "No browser runtime/console exceptions",
+      "status": "PASS"
+    }
+  ],
+  "browser_errors": []
+}

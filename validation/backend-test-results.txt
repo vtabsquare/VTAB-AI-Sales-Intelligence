@@ -1,0 +1,105 @@
+.......................                                                  [100%]
+=============================== warnings summary ===============================
+../../../../../../tmp/vtab-ui-validation/lib/python3.12/site-packages/starlette/testclient.py:40
+  /tmp/vtab-ui-validation/lib/python3.12/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+app/main.py:50
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/main.py:50: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("startup")
+
+../../../../../../tmp/vtab-ui-validation/lib/python3.12/site-packages/fastapi/applications.py:4495
+../../../../../../tmp/vtab-ui-validation/lib/python3.12/site-packages/fastapi/applications.py:4495
+  /tmp/vtab-ui-validation/lib/python3.12/site-packages/fastapi/applications.py:4495: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)
+
+app/main.py:75
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/main.py:75: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event("shutdown")
+
+tests/test_auth_contracts.py::test_auth_password_otp_session_logout
+tests/test_auth_contracts.py::test_auth_password_otp_session_logout
+tests/test_auth_contracts.py::test_provider_failure_invalidates_challenge
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/api/auth_routes.py:349: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    AuthOtpChallenge.created_at > datetime.utcnow() - timedelta(seconds=60)
+
+tests/test_auth_contracts.py::test_auth_password_otp_session_logout
+tests/test_auth_contracts.py::test_expired_attempt_limit_delivery_failure
+tests/test_auth_contracts.py::test_expired_attempt_limit_delivery_failure
+tests/test_auth_contracts.py::test_provider_failure_invalidates_challenge
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/api/auth_routes.py:128: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expires_at=datetime.utcnow() + timedelta(minutes=10),
+
+tests/test_auth_contracts.py: 12 warnings
+tests/test_integrations_scheduler.py: 20 warnings
+tests/test_source_and_failures.py: 14 warnings
+tests/test_workflow.py: 30 warnings
+  /tmp/vtab-ui-validation/lib/python3.12/site-packages/sqlalchemy/sql/schema.py:3596: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+
+tests/test_auth_contracts.py::test_auth_password_otp_session_logout
+tests/test_auth_contracts.py::test_auth_password_otp_session_logout
+tests/test_auth_contracts.py::test_expired_attempt_limit_delivery_failure
+tests/test_auth_contracts.py::test_expired_attempt_limit_delivery_failure
+tests/test_auth_contracts.py::test_expired_attempt_limit_delivery_failure
+tests/test_auth_contracts.py::test_expired_attempt_limit_delivery_failure
+tests/test_auth_contracts.py::test_expired_attempt_limit_delivery_failure
+tests/test_auth_contracts.py::test_expired_attempt_limit_delivery_failure
+tests/test_auth_contracts.py::test_expired_attempt_limit_delivery_failure
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/api/auth_routes.py:446: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    if datetime.utcnow() > challenge.expires_at:
+
+tests/test_auth_contracts.py::test_auth_password_otp_session_logout
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/api/auth_routes.py:493: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    AuthOtpChallenge.expires_at > datetime.utcnow()
+
+tests/test_auth_contracts.py: 3 warnings
+tests/test_integrations_scheduler.py: 4 warnings
+tests/test_source_and_failures.py: 5 warnings
+tests/test_workflow.py: 3 warnings
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/api/auth_routes.py:62: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    expires_at=datetime.utcfromtimestamp(payload['exp']), revoked=False))
+
+tests/test_auth_contracts.py: 34 warnings
+tests/test_integrations_scheduler.py: 29 warnings
+tests/test_source_and_failures.py: 10 warnings
+tests/test_workflow.py: 25 warnings
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/api/auth_routes.py:92: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return bool(active and not active.revoked and active.expires_at > datetime.utcnow())
+
+tests/test_auth_contracts.py::test_expired_attempt_limit_delivery_failure
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/tests/test_auth_contracts.py:39: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    with SessionLocal() as db: x=db.query(AuthOtpChallenge).one();x.expires_at=datetime.utcnow()-timedelta(seconds=1);db.commit()
+
+tests/test_integrations_scheduler.py::test_schedulers_success_failure_and_history
+tests/test_integrations_scheduler.py::test_schedulers_success_failure_and_history
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/services/workflow_scheduler.py:17: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    now=now or datetime.utcnow()
+
+tests/test_integrations_scheduler.py::test_schedulers_success_failure_and_history
+tests/test_integrations_scheduler.py::test_schedulers_success_failure_and_history
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/services/workflow_scheduler.py:29: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    start=datetime.utcnow(); tick=perf_counter()
+
+tests/test_integrations_scheduler.py::test_schedulers_success_failure_and_history
+tests/test_integrations_scheduler.py::test_schedulers_success_failure_and_history
+  /workspace/scratch/5431139bd698/delivery/VTAB-AI-Sales-Intelligence/backend/app/services/workflow_scheduler.py:39: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    h.finished_at=datetime.utcnow(); h.duration_ms=int((perf_counter()-tick)*1000); w.last_run_at=start; w.next_run_at=next_run(w,start); db.commit(); db.refresh(h)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+23 passed, 218 warnings in 0.81s

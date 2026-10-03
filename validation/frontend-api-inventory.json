@@ -1,0 +1,275 @@
+[
+  {
+    "file": "app/admin/page.tsx",
+    "line": 8,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/integrations/microsoft/status`"
+  },
+  {
+    "file": "app/admin/page.tsx",
+    "line": 10,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/integrations/microsoft/test`"
+  },
+  {
+    "file": "app/agents/page.tsx",
+    "line": 8,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/agent-runs`"
+  },
+  {
+    "file": "app/approval/page.tsx",
+    "line": 4,
+    "client": "apiJson",
+    "method": "GET",
+    "url": "'/outreach/approval-queue'"
+  },
+  {
+    "file": "app/approval/page.tsx",
+    "line": 4,
+    "client": "apiJson",
+    "method": "PATCH",
+    "url": "`/outreach/${x.id}`"
+  },
+  {
+    "file": "app/approval/page.tsx",
+    "line": 4,
+    "client": "apiJson",
+    "method": "POST",
+    "url": "`/outreach/${x.id}/${action}`"
+  },
+  {
+    "file": "app/discovery/page.tsx",
+    "line": 7,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/platform/sources`"
+  },
+  {
+    "file": "app/discovery/page.tsx",
+    "line": 8,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/platform/discovery/queries`"
+  },
+  {
+    "file": "app/discovery/page.tsx",
+    "line": 19,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/platform/discovery/run`"
+  },
+  {
+    "file": "app/discovery/page.tsx",
+    "line": 19,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/platform/sources`"
+  },
+  {
+    "file": "app/job-monitor/page.tsx",
+    "line": 3,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/platform/schedule-history/all?limit=300`"
+  },
+  {
+    "file": "app/login/page.tsx",
+    "line": 34,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/auth/login`"
+  },
+  {
+    "file": "app/login/page.tsx",
+    "line": 83,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/auth/verify`"
+  },
+  {
+    "file": "app/login/page.tsx",
+    "line": 122,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/auth/session`"
+  },
+  {
+    "file": "app/opportunities/page.tsx",
+    "line": 7,
+    "client": "apiJson",
+    "method": "GET",
+    "url": "'/opportunities'"
+  },
+  {
+    "file": "app/opportunities/page.tsx",
+    "line": 7,
+    "client": "apiJson",
+    "method": "POST",
+    "url": "`/opportunities/${selected.id}/${name}`"
+  },
+  {
+    "file": "app/outreach/page.tsx",
+    "line": 1353,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/outreach/send-center`"
+  },
+  {
+    "file": "app/outreach/page.tsx",
+    "line": 1659,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/outreach/${item.id}/resolve-recipient`"
+  },
+  {
+    "file": "app/outreach/page.tsx",
+    "line": 2675,
+    "client": "apiFetch",
+    "method": "PATCH",
+    "url": "`${API}/outreach/${item.id}/recipient`"
+  },
+  {
+    "file": "app/outreach/page.tsx",
+    "line": 3272,
+    "client": "apiJson",
+    "method": "POST",
+    "url": "`/outreach/${item.id}/confirm-recipient-evidence`"
+  },
+  {
+    "file": "app/outreach/page.tsx",
+    "line": 3289,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/outreach/${item.id}/verify-recipient`"
+  },
+  {
+    "file": "app/outreach/page.tsx",
+    "line": 3539,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/outreach/${item.id}/test-verify-recipient`"
+  },
+  {
+    "file": "app/outreach/page.tsx",
+    "line": 3789,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/outreach/${item.id}/send`"
+  },
+  {
+    "file": "app/page.tsx",
+    "line": 10,
+    "client": "serverGet",
+    "method": "GET",
+    "url": "\"/api/dashboard\""
+  },
+  {
+    "file": "app/pipeline/page.tsx",
+    "line": 7,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/pipeline`"
+  },
+  {
+    "file": "app/portfolio/page.tsx",
+    "line": 6,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/platform/services`"
+  },
+  {
+    "file": "app/portfolio/page.tsx",
+    "line": 6,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/platform/services`"
+  },
+  {
+    "file": "app/resources/page.tsx",
+    "line": 3,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/platform/resources`"
+  },
+  {
+    "file": "app/resources/page.tsx",
+    "line": 3,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/platform/resources`"
+  },
+  {
+    "file": "app/responses/page.tsx",
+    "line": 14,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}${path}`"
+  },
+  {
+    "file": "app/schedulers/page.tsx",
+    "line": 3,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/platform/schedules`"
+  },
+  {
+    "file": "app/schedulers/page.tsx",
+    "line": 3,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/platform/schedules`"
+  },
+  {
+    "file": "app/schedulers/page.tsx",
+    "line": 3,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/platform/schedules/${id}/run`"
+  },
+  {
+    "file": "app/security/page.tsx",
+    "line": 1,
+    "client": "apiJson",
+    "method": "GET",
+    "url": "'/auth/session'"
+  },
+  {
+    "file": "app/security/page.tsx",
+    "line": 1,
+    "client": "apiJson",
+    "method": "GET",
+    "url": "'/integrations/microsoft/status'"
+  },
+  {
+    "file": "app/templates/page.tsx",
+    "line": 6,
+    "client": "apiFetch",
+    "method": "GET",
+    "url": "`${API}/platform/templates`"
+  },
+  {
+    "file": "app/templates/page.tsx",
+    "line": 6,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/platform/templates`"
+  },
+  {
+    "file": "app/templates/page.tsx",
+    "line": 6,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "`${API}/platform/templates/generate`"
+  },
+  {
+    "file": "components/AppSidebar.tsx",
+    "line": 151,
+    "client": "apiFetch",
+    "method": "POST",
+    "url": "\"/backend-api/auth/logout\""
+  }
+]
