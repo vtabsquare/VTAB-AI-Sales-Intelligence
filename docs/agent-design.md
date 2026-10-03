@@ -5,3 +5,6 @@ Qualification: seven bounded score dimensions, hard gates, confidence, concerns 
 Research/contact: source-evidence retrieval; no invented addresses; published candidates remain unverified. Demo evidence is synthetic and labeled.
 Capability match: retrieves approved knowledge only. DEMO-category knowledge is excluded when DEMO_MODE=false. A document approval is a human assertion of reviewed company facts, not an external authenticity check.
 Outreach: builds a personalized local draft or validated provider output from approved knowledge; never sends. Provider requests use separate Markdown system prompts, bounded input, strict JSON schema and Pydantic validation. All external content is untrusted data. Follow-up/response agents from the prior implementation are retained for later acceptance.
+
+## Deployment correction
+Windows-native Python + Next.js + the existing SQL Server is the required deployment path. Docker/PostgreSQL execution is not required. Follow README.md and local-development.md. Live Microsoft 365 and SQL Server acceptance remain pending.

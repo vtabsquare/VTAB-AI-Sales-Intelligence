@@ -17,8 +17,9 @@ FastAPI coordinates specialized discovery, qualification, evidence research, cap
 Company 1 → many Opportunities and Contacts. Opportunity 1 → many DiscoveryOccurrences, OutreachDrafts and AgentRuns (run input contains opportunity ID). Opportunity 1 → 1 QualificationAssessment and IntelligenceWorkflow. KnowledgeDocument 1 → many KnowledgeChunks. Existing Communications, Suppressions, FollowUps and Sessions remain in use.
 
 ## Services and configuration
-Docker Compose: PostgreSQL, Redis, migration job, API, worker, frontend. PostgreSQL stores durable state; Redis is provisioned for future queue migration. The current worker uses persisted schedule records and runs as one replica.
 DATABASE_URL, JWT_SECRET, LOGIN_EMAIL, LOGIN_PASSWORD, DEMO_MODE, DEMO_AUTH, AI_PROVIDER, OPENAI_API_KEY, OPENAI_MODEL and provider endpoints configure the application. Graph credentials and SERPER_API_KEY are optional external integrations. Demo auth is an explicit development-only OTP mode and never calls Graph.
 
 ## Assumptions and controls
-Phase 1 is the prompt's execution target. Existing SQL Server installations retain their database configuration; new Compose installations use PostgreSQL. Demo facts are labeled synthetic. Approved knowledge is the only source of capability claims. External text is untrusted input, never an instruction. Schema validation and hard rejection gates override model scores. No model has a send tool. No automatic customer outreach. Authentication, suppression, evidence review, approval and final confirmation remain mandatory. Secrets stay outside git and container build contexts. Entra SSO, pgvector and advanced reports remain later work, explicitly documented.
+
+## Deployment correction
+Windows-native Python + Next.js + the existing SQL Server is the required deployment path. Docker/PostgreSQL execution is not required. Follow README.md and local-development.md. Live Microsoft 365 and SQL Server acceptance remain pending.

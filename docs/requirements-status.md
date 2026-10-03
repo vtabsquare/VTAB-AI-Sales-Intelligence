@@ -4,7 +4,6 @@ The execution instruction requests Phase 1 first. This checkpoint extends the ex
 | Requirement | Current implementation |
 |---|---|
 | Local end-to-end demo | Labeled seed discovery, password + development OTP, seven-dimensional qualification, research, approved knowledge, contact review, draft, approval queue |
-| Container structure | PostgreSQL, Redis, migration/seed job, API, worker, Next.js, persistent database, health checks |
 | Database migrations | Three frozen Alembic revisions and strict existing-baseline adoption check |
 | AI abstraction | local deterministic mode; schema-validated OpenAI/Azure endpoint for live qualification/outreach |
 | Agent orchestration | Allowlisted supervisor tools, persisted outputs/checkpoints, failed-step retry, human approval termination |
@@ -19,4 +18,6 @@ The execution instruction requests Phase 1 first. This checkpoint extends the ex
 | Vector search | pgvector/embeddings deferred; retrieval is explicitly LEXICAL |
 | Advanced automation | Single scheduler worker; distributed queues/leases, no-reply business-day cadence and full state-history CRM deferred |
 | Analytics / Phase 4 | Existing dashboard/pipeline/logs retained; advanced reports, proposals, calendar and LinkedIn discovery deferred |
-| Production release | Docker execution, PostgreSQL/SQL Server tenant acceptance, live AI/Graph and security acceptance require their configured environments |
+
+## Deployment correction
+Windows-native Python + Next.js + the existing SQL Server is the required deployment path. Docker/PostgreSQL execution is not required. Follow README.md and local-development.md. Live Microsoft 365 and SQL Server acceptance remain pending.

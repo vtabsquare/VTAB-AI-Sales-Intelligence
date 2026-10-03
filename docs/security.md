@@ -1,7 +1,6 @@
 # Security and release controls
-The existing session, OTP expiry/replay/attempt limits, same-origin mutation check, suppression, contact evidence review, human draft approval and final send confirmation remain active. Secrets and generated folders are ignored by git and excluded by Docker build contexts.
-DEMO_AUTH=true is only valid with DEMO_MODE=true and APP_ENV development/local/test. It uses the documented 123456 development OTP and never calls Graph. This is an isolated local demo convenience, not a production identity solution. Docker ports bind to 127.0.0.1. Configure private credentials before login; the setup script generates them and refuses to overwrite an existing .env.
 
 Knowledge is unapproved by default; withdrawn evidence immediately disappears from retrieval. Demo fixtures are excluded from live retrieval. Provider models have no email-send tool and cannot bypass deterministic rejection gates. External HTTP source requests reject private/loopback/reserved resolved addresses, credentials and nonstandard ports; redirects are checked again. Response-size and timeout limits apply. Production egress controls are still needed to prevent DNS rebinding and constrain external sources. Only automate sources with permission.
 
-Phase 1 authentication is a single configured operator. Entra SSO, multi-user RBAC, comprehensive immutable audit retention, distributed workflow leases and penetration testing are not implemented in this checkpoint. Do not call this a production certification. Container production rollout requires TLS, secret manager, backups, network policy and tenant acceptance.
+## Deployment correction
+Windows-native Python + Next.js + the existing SQL Server is the required deployment path. Docker/PostgreSQL execution is not required. Follow README.md and local-development.md. Live Microsoft 365 and SQL Server acceptance remain pending.

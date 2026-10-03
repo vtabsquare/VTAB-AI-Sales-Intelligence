@@ -17,7 +17,8 @@ popd
 
 echo [3/3] Dependencies ready. No database was created or reset.
 echo Copy your working private .env files into this NEW folder if needed.
-echo Then, from backend, run .venv\Scripts\python.exe schema_check.py --add-auth-session
- echo This only adds the durable session table if absent, and audits existing tables.
-echo Use scripts\start-windows.bat after the schema check passes.
+echo Then, from backend, run .venv\Scripts\python.exe adopt_baseline.py
+ echo This compares the existing schema without changing customer data.
+echo Follow README.md for reviewed baseline adoption and additive Alembic migrations.
+echo Use scripts\start-acceptance-windows.bat after schema_check.py passes.
 endlocal
