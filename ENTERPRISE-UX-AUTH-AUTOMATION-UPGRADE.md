@@ -18,7 +18,7 @@
 ## Authentication
 Development credentials requested for this build:
 - Email: `contactsales@vtabsquare.com`
-- Password: `12345`
+- Password: configured privately through `LOGIN_PASSWORD` (not published).
 
 The second factor is mandatory. A six-digit OTP is sent to the same mailbox through Microsoft Graph and expires after 10 minutes. The existing Microsoft Graph application therefore needs working `Mail.Send` application permission and valid tenant/client/secret/sender configuration.
 

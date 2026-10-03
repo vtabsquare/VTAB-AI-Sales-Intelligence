@@ -1,34 +1,16 @@
-# VTAB Global Opportunity Agent
-
-Runnable Phase-1 implementation of VTAB's agentic opportunity intelligence platform.
-
-## Architecture
-Next.js UI -> FastAPI API -> deterministic workflow/services + specialized agent run log -> PostgreSQL. Redis is included for production background-job evolution. External search, OpenAI, Entra and Microsoft Graph are adapter boundaries; Demo Mode works without credentials.
-
-## Run
-```bash
-docker compose up --build
+# Local demo
+Prerequisites: Git, Python 3.12 (for the configuration helper), Docker Engine/Desktop with Compose v2.
+From the repository root:
 ```
-Open http://localhost:3000 and API docs at http://localhost:8001/docs.
-
-Seed opportunities:
-```bash
-curl -X POST http://localhost:8001/api/opportunities/discover
+python scripts/configure-demo.py
+docker compose up --build -d
+docker compose ps
 ```
-Then qualify/research/find-contact/generate outreach using Swagger or REST endpoints.
+Open http://localhost:3000/login. Use LOGIN_EMAIL and LOGIN_PASSWORD from the generated root .env. Enter demo OTP 123456. Never share that .env.
+Discovery Engine → Run Discovery Now → Opportunities → select an opportunity → Run / resume to approval → inspect scoring and knowledge → Approval Queue → edit/approve/reject. Demo discovery returns three labeled synthetic requirements, including Example Ireland Analytics Ltd's Power BI/Fabric modernization example. It is idempotent. No customer email is sent in demo mode.
 
-## Test
-```bash
-cd backend
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-pytest -q
-```
+Knowledge Base lets you add evidence, inspect it, approve/withdraw it and search approved chunks. Discovery Engine lets you configure country/region priority, keywords, language and IANA timezone; these alter generated queries for live web search. Country query targeting is not proof of vendor eligibility, nor a strict geographical filter on RSS/web pages.
 
-## Safety
-`DEMO_MODE=true` never sends real email. Outreach send requires `APPROVED`. Contacts have verification state; the demo contact intentionally has no invented email. Production credentials are environment-only.
+Native development: create a backend virtual environment, install backend/requirements.txt, configure DATABASE_URL to a fresh SQLite/PostgreSQL DB plus LOGIN_EMAIL, LOGIN_PASSWORD and JWT_SECRET. Set DEMO_MODE=true, DEMO_AUTH=true, APP_ENV=development, SCHEDULER_ENABLED=false and INITIALIZE_SCHEMA=false. Run `alembic upgrade head`, `python -m app.seed`, and `uvicorn app.main:app --host 127.0.0.1 --port 8001` from backend. In frontend run `npm ci` and `npm run dev`. A separate terminal may run `python -m app.worker` from backend; use only one scheduler worker.
 
-## Phase 1 scope
-Implemented: opportunity persistence, demo discovery, URL deduplication, deterministic qualification dimensions, research trace, contact safety, capability match, outreach generation, approval queue, simulated sending, response simulation, dashboard and agent logs.
-
-Production enablement still requires Entra auth/RBAC enforcement, Alembic-managed schema rollout, live permitted search adapters, OpenAI provider calls, pgvector ingestion, Microsoft Graph, Celery schedules, compliance rules by jurisdiction, and full observability.
+Stop containers: `docker compose down` preserves PostgreSQL data. Do not use `down -v` on data you want to retain.

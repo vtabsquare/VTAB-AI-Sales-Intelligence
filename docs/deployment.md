@@ -1,34 +1,6 @@
-# VTAB Global Opportunity Agent
+# Deployment
+The Compose stack includes PostgreSQL health checks and persistent volume, Redis, a one-shot migration/demo seed job, API health check, one scheduler worker and Next.js frontend. API and frontend listen on loopback for local use. Migrations must succeed before app startup. Dockerfiles exclude local secrets/dependencies.
 
-Runnable Phase-1 implementation of VTAB's agentic opportunity intelligence platform.
+GitHub Actions validates backend syntax, pytest, TypeScript and frontend production build. The container job builds the stack and checks frontend/backend startup. It performs local fixture acceptance only; no production deployment or live outbound send is configured.
 
-## Architecture
-Next.js UI -> FastAPI API -> deterministic workflow/services + specialized agent run log -> PostgreSQL. Redis is included for production background-job evolution. External search, OpenAI, Entra and Microsoft Graph are adapter boundaries; Demo Mode works without credentials.
-
-## Run
-```bash
-docker compose up --build
-```
-Open http://localhost:3000 and API docs at http://localhost:8001/docs.
-
-Seed opportunities:
-```bash
-curl -X POST http://localhost:8001/api/opportunities/discover
-```
-Then qualify/research/find-contact/generate outreach using Swagger or REST endpoints.
-
-## Test
-```bash
-cd backend
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-pytest -q
-```
-
-## Safety
-`DEMO_MODE=true` never sends real email. Outreach send requires `APPROVED`. Contacts have verification state; the demo contact intentionally has no invented email. Production credentials are environment-only.
-
-## Phase 1 scope
-Implemented: opportunity persistence, demo discovery, URL deduplication, deterministic qualification dimensions, research trace, contact safety, capability match, outreach generation, approval queue, simulated sending, response simulation, dashboard and agent logs.
-
-Production enablement still requires Entra auth/RBAC enforcement, Alembic-managed schema rollout, live permitted search adapters, OpenAI provider calls, pgvector ingestion, Microsoft Graph, Celery schedules, compliance rules by jurisdiction, and full observability.
+For Azure Container Apps/App Service: build backend/frontend images, configure PostgreSQL and secrets externally, run migrations as a release job, disable DEMO_AUTH, configure TLS and appropriate origins, and isolate one scheduler worker. Production release needs tenant Graph consent, Entra identity work, database/backup validation and security acceptance. Existing SQL Server installations should follow database-schema.md rather than point the fresh Compose PostgreSQL configuration at their live DB.

@@ -15,7 +15,7 @@ class FeedClient:
  def get(self,url):return httpx.Response(200,text='<rss><channel><item><title>Power BI RFP</title><link>https://example.com/rfp</link><description>Analytics tender</description></item></channel></rss>',request=httpx.Request('GET',url))
 
 def test_rss_parser_no_network():
- with patch('httpx.Client',FeedClient): rows=_rss('https://example.com/feed','QA')
+ with patch('httpx.Client',FeedClient),patch('app.services.public_http.validate_public_url'): rows=_rss('https://example.com/feed','QA')
  assert rows[0]['title']=='Power BI RFP' and rows[0]['source']=='QA'
 
 def test_source_contact_evidence(authorized):
@@ -46,6 +46,7 @@ def test_disallowed_test_verification_in_live_mode(authorized):
 
 def test_human_recipient_evidence_gate(authorized):
     with SessionLocal() as db:oid=discover(db)[0].id
+    authorized.post(f'/api/opportunities/{oid}/qualify')
     did=authorized.post(f'/api/opportunities/{oid}/generate-outreach').json()['id']
     authorized.patch(f'/api/outreach/{did}/recipient',json={'email':'reviewed@example.com'})
     path=f'/api/outreach/{did}/confirm-recipient-evidence'
@@ -59,6 +60,6 @@ def test_html_source_extraction_no_network():
     class HtmlClient(FeedClient):
         def get(self,url):return httpx.Response(200,text='<html><body><p>Official procurement contact</p><a href="mailto:procurement@buyer.example">Contact</a><script>hidden content</script></body></html>',request=httpx.Request('GET',url))
     # Local function reference is the original implementation, not the offline autouse patch.
-    with patch('httpx.Client',HtmlClient):result=fetch_evidence('https://buyer.example/tender')
+    with patch('httpx.Client',HtmlClient),patch('app.services.public_http.validate_public_url'):result=fetch_evidence('https://buyer.example/tender')
     assert result['status']=='FETCHED' and result['emails']==['procurement@buyer.example']
     assert 'hidden content' not in result['text']

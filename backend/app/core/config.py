@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     # When true, outbound email is always simulated.
     demo_mode: bool = True
 
+    demo_auth: bool = False
+    demo_otp: str = "123456"
+    ai_provider: str = "local"
+    ai_endpoint: str = "https://api.openai.com/v1/chat/completions"
     openai_api_key: str = ""
     openai_model: str = "gpt-5.6"
     # Optional live global web-search provider. Without this key, configured RSS/website sources still run.

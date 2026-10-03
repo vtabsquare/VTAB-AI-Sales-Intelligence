@@ -1,0 +1,12 @@
+"use client";
+import {FormEvent,useEffect,useState} from 'react';
+import {apiJson} from '../lib/api';
+type Country={name:string;priority:number;enabled:boolean;keywords:string[];language:string;timezone:string};
+const empty={name:'',priority:50,enabled:true,keywords:[] as string[],language:'en',timezone:'UTC'};
+export default function CountryTargets(){
+ const [rows,setRows]=useState<Country[]>([]),[form,setForm]=useState<Country>(empty),[words,setWords]=useState(''),[busy,setBusy]=useState(false),[notice,setNotice]=useState('');
+ async function load(){try{setRows(await apiJson<Country[]>('/admin/countries'))}catch(e){setNotice(e instanceof Error?e.message:'Unable to load country targets.')}}
+ useEffect(()=>{void load()},[]);
+ async function save(e:FormEvent){e.preventDefault();setBusy(true);try{await apiJson('/admin/countries',{method:'POST',body:JSON.stringify({...form,keywords:words.split(',').map(x=>x.trim()).filter(Boolean)})});await load();setForm(empty);setWords('');setNotice('Country targeting saved. Run discovery again to regenerate search intents.')}catch(e){setNotice(e instanceof Error?e.message:'Save failed.')}finally{setBusy(false)}}
+ return <section className="nx-card"><h2>Country targeting</h2><p>No target records means global search. Configured targets add country and keywords to search intents; they do not prove vendor eligibility.</p><p role="status">{notice}</p><form onSubmit={save}><label>Country / region<input required maxLength={120} value={form.name} onChange={e=>setForm({...form,name:e.target.value})}/></label><label>Priority (0–100)<input required type="number" min={0} max={100} value={form.priority} onChange={e=>setForm({...form,priority:Number(e.target.value)})}/></label><label>Keywords (comma separated)<input value={words} onChange={e=>setWords(e.target.value)}/></label><label>Language<input value={form.language} onChange={e=>setForm({...form,language:e.target.value})}/></label><label>IANA time zone<input required value={form.timezone} onChange={e=>setForm({...form,timezone:e.target.value})}/></label><label><input type="checkbox" checked={form.enabled} onChange={e=>setForm({...form,enabled:e.target.checked})}/> Enabled</label><button disabled={busy}>Save country</button></form>{rows.map(row=><div className="nx-row" key={row.name}><div><b>{row.name}</b><p>{row.enabled?'Enabled':'Disabled'} · Priority {row.priority} · {row.timezone}</p></div><button onClick={()=>{setForm(row);setWords(row.keywords.join(', '))}}>Edit</button></div>)}</section>
+}

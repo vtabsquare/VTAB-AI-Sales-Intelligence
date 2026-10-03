@@ -1,0 +1,52 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> build
+> next build
+
+   ▲ Next.js 15.5.27
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 5.8s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/21) ...
+   Generating static pages (5/21)
+   Generating static pages (10/21)
+   Generating static pages (15/21)
+ ✓ Generating static pages (21/21)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ƒ /                                      131 B         103 kB
+├ ○ /_not-found                            992 B         104 kB
+├ ○ /admin                                3.1 kB         106 kB
+├ ○ /agents                              2.51 kB         105 kB
+├ ○ /approval                            2.21 kB         105 kB
+├ ƒ /backend-api/[...path]                 131 B         103 kB
+├ ○ /discovery                           3.38 kB         106 kB
+├ ○ /job-monitor                         2.42 kB         105 kB
+├ ○ /knowledge                           2.85 kB         106 kB
+├ ○ /login                               9.32 kB         112 kB
+├ ○ /opportunities                       4.86 kB         108 kB
+├ ○ /outreach                            6.51 kB         109 kB
+├ ○ /pipeline                            3.19 kB         106 kB
+├ ○ /portfolio                           2.36 kB         105 kB
+├ ○ /resources                            2.4 kB         105 kB
+├ ○ /response-center                       131 B         103 kB
+├ ○ /responses                           4.57 kB         107 kB
+├ ○ /schedulers                          3.15 kB         109 kB
+├ ○ /security                            2.37 kB         105 kB
+├ ○ /templates                           4.38 kB         107 kB
+└ ○ /workflow                            2.15 kB         108 kB
++ First Load JS shared by all             103 kB
+  ├ chunks/145-4a5708966d94301c.js       46.6 kB
+  ├ chunks/17709d83-faaeb3a9a1b7dac6.js  54.2 kB
+  └ other shared chunks (total)          1.92 kB
+
+
+ƒ Middleware                             34.3 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

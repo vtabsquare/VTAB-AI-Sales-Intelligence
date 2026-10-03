@@ -195,6 +195,10 @@ def _graph_token(client: httpx.Client) -> str:
 
 
 def send_otp(code: str) -> None:
+    if settings.demo_auth:
+        if not settings.demo_mode or settings.app_env not in {'development','local','test'}:
+            raise RuntimeError('Demo authentication is forbidden outside development demo mode.')
+        return
     required = [
         settings.microsoft_tenant_id,
         settings.microsoft_client_id,
@@ -351,7 +355,7 @@ def login(payload: Login):
         if recent:
             raise HTTPException(429, 'Please wait one minute before requesting another verification email.')
     # Generate secure six-digit OTP.
-    code = f"{secrets.randbelow(1000000):06d}"
+    code = settings.demo_otp if settings.demo_auth and settings.demo_mode and settings.app_env in {"development","local","test"} else f"{secrets.randbelow(1000000):06d}"
 
     try:
         # Save OTP hash BEFORE sending the email.
@@ -391,6 +395,8 @@ def login(payload: Login):
 
     return {
         "status": "OTP_SENT",
+        "demo_auth": settings.demo_auth,
+        "message": "Development demo: use the configured DEMO_OTP (default 123456). No verification email was sent." if settings.demo_auth else "A verification code has been sent to your Microsoft 365 mailbox.",
         "email": LOGIN_EMAIL,
         "expires_minutes": 10,
     }

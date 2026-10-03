@@ -6,6 +6,14 @@ KEYS={'Databricks':['databricks','lakehouse','spark'],'Microsoft Fabric':['fabri
 def log(db,name,inp,out,status='SUCCESS'):
     r=AgentRun(agent_name=name,input_json=inp,output_json=out,status=status); db.add(r); db.commit(); return r
 def discover(db:Session):
+    from app.core.config import settings
+    if not settings.demo_mode: raise ValueError('Demo discovery requires DEMO_MODE=true.')
+    from app.models.entities import KnowledgeDocument
+    if not db.query(KnowledgeDocument).filter(KnowledgeDocument.title=='DEMO — VTAB capability fixture').first():
+        from app.services.knowledge import reindex
+        doc=KnowledgeDocument(title='DEMO — VTAB capability fixture',category='DEMO',approved=True,content='Synthetic demo: '+', '.join(SERVICES)+'. No customer references or certifications.')
+        db.add(doc);db.commit();reindex(db,doc)
+
     samples=[
       ('Example Ireland Analytics Ltd','Power BI and Microsoft Fabric modernization partner','Ireland','https://demo.vtabsquare.local/opportunities/ireland-fabric','Seeking an external implementation partner for Power BI, Microsoft Fabric and data engineering modernization.'),
       ('Northstar Data Council','Databricks lakehouse migration services','United Kingdom','https://demo.vtabsquare.local/opportunities/uk-databricks','Public procurement notice for Databricks migration, Spark modernization and managed data engineering.'),
@@ -19,23 +27,22 @@ def discover(db:Session):
     db.commit(); log(db,'Opportunity Discovery Agent',{'mode':'demo'},{'discovered':len(made)})
     return made
 def qualify(db,o):
-    text=((o.title or '')+' '+(o.description or '')).lower(); matches=[s for s,ks in KEYS.items() if any(k in text for k in ks)]
-    tech=min(25,10+5*len(matches)); service=min(20,8+4*len(matches)); commercial=15; geo=10; buyer=8; fresh=10; strategic=8; score=tech+service+commercial+geo+buyer+fresh+strategic
-    if o.closing_date and o.closing_date < date.today(): score=0; status='REJECTED'; reason='Deadline has passed.'
-    elif not matches: score=0; status='REJECTED'; reason='No supported VTAB capability match.'
-    else: status='QUALIFIED' if score>=65 else 'UNDER_REVIEW'; reason=f"Relevant because the requirement maps to VTAB capabilities: {', '.join(matches)}."
-    o.qualification_score=score; o.qualification_status=status; o.business_fit='HIGH' if score>=80 else ('MEDIUM' if score>=65 else 'LOW'); o.pipeline_status=status; o.matched_services=matches; o.relevance_reason=reason; db.commit(); log(db,'Qualification Agent',{'opportunity_id':o.id},{'score':score,'matched_services':matches,'status':status}); return o
+    from app.agents.qualification import evaluate
+    result=evaluate(db,o)
+    log(db,'Qualification Agent',{'opportunity_id':o.id},{'score':o.qualification_score,'matched_services':o.matched_services,'status':o.qualification_status})
+    return result
 def research(db,o):
     from app.services.source_evidence import fetch_evidence
     company=db.get(Company,o.company_id)
     if not company: raise ValueError('Opportunity has no associated company. Review source evidence first.')
-    evidence=fetch_evidence(o.source_url)
+    evidence={'text':o.description,'status':'DEMO','emails':[]} if o.source_name.startswith('DEMO') else fetch_evidence(o.source_url)
     summary=evidence['text'][:2000] or o.description or 'No source description is available.'
     out={'company_name':company.name,'country':company.country,'company_summary':summary,
          'known_facts':['Company identity is taken from the opportunity record and requires human review.'],
          'inferences':[],'sources':[o.source_url], 'evidence_status':evidence['status'],
          'message':'Source evidence fetched.' if evidence['status']=='FETCHED' else 'External evidence unavailable; stored opportunity context returned.'}
-    o.pipeline_status='RESEARCHING';db.commit();log(db,'Company Research Agent',{'opportunity_id':o.id},out);return out
+    if o.pipeline_status in {'DISCOVERED','UNDER_REVIEW','QUALIFIED','RESEARCHING'}: o.pipeline_status='RESEARCHING'
+    db.commit();log(db,'Company Research Agent',{'opportunity_id':o.id},out);return out
 
 def find_contact(db,o):
     from app.services.source_evidence import fetch_evidence
@@ -51,14 +58,31 @@ def find_contact(db,o):
             contact=Contact(company_id=company.id,full_name='Procurement Team',title='IT Procurement',email=email,email_verification_status='UNVERIFIED');db.add(contact)
         elif email:
             contact.email=email;contact.email_verification_status='UNVERIFIED'
-    o.pipeline_status='CONTACT_IDENTIFIED';db.commit()
+    if o.pipeline_status in {'DISCOVERED','UNDER_REVIEW','QUALIFIED','RESEARCHING','CONTACT_IDENTIFIED'}: o.pipeline_status='CONTACT_IDENTIFIED'
+    db.commit()
     log(db,'Contact Research Agent',{'opportunity_id':o.id},{'contact_id':contact.id,'email':contact.email,'source_url':o.source_url,'evidence_status':evidence['status'],'published_candidates':evidence['emails'],'rule':'Published evidence only; human verification is still required'})
     return contact
 
 def draft(db,o):
+    if o.qualification_status != 'QUALIFIED': raise ValueError('Qualify the opportunity before generating outreach.')
+    from app.services.knowledge import retrieve
+    knowledge=retrieve(db,f'{o.title} {o.description}')
+    if not knowledge: raise ValueError('Approved knowledge evidence is required before outreach.')
     c=db.get(Company,o.company_id); contact=find_contact(db,o); services=', '.join(o.matched_services or [])
     subject=f'{c.name} — support for {o.title}'
     body=f"Hello {contact.full_name},\n\nWe identified your published requirement: {o.title}. Based on the requirement, VTAB Square may be able to support the work through {services}.\n\nWe would be glad to understand the procurement process and discuss where our engineering team could contribute.\n\nRegards,\nBusiness Development Team\nVTAB Square Private Limited"
+    from app.core.config import settings
+    if not settings.demo_mode and settings.ai_provider != 'local':
+        from app.agents.provider import StructuredProvider
+        from pydantic import BaseModel, ConfigDict, Field
+        class OutreachResult(BaseModel):
+            model_config=ConfigDict(extra='forbid')
+            subject:str=Field(min_length=1,max_length=255)
+            body_text:str=Field(min_length=1,max_length=12000)
+            personalization_reasons:list[str]
+            risk_flags:list[str]
+        result=StructuredProvider().generate('outreach',{'opportunity':{'title':o.title,'description':o.description,'source_url':o.source_url},'company':c.name,'matched_services':o.matched_services,'approved_knowledge':knowledge},OutreachResult)
+        subject=result.subject;body=result.body_text
     d=OutreachDraft(opportunity_id=o.id,contact_id=contact.id,subject=subject,body_text=body,status='WAITING_APPROVAL'); db.add(d); o.pipeline_status='OUTREACH_READY'; db.commit(); log(db,'Outreach Agent',{'opportunity_id':o.id},{'draft_id':d.id,'status':d.status}); return d
 def send(db, d):
     """

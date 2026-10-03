@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 import httpx
 from sqlalchemy.orm import Session
 from app.core.config import settings
+from app.services.public_http import public_get
 from app.models.entities import Opportunity, Company, AgentRun
 from app.models.platform import ServicePortfolio, DiscoverySource
 
@@ -27,6 +28,10 @@ def queries(db:Session):
         terms=(p.keywords or [])[:5] or [p.name]
         for term in terms:
             qs.extend([f'"{term}" RFP OR tender OR RFQ',f'"{term}" "implementation partner"',f'"{term}" procurement'])
+    from app.models.intelligence import CountryTarget
+    countries=db.query(CountryTarget).filter(CountryTarget.enabled.is_(True)).order_by(CountryTarget.priority.desc()).all()
+    if db.query(CountryTarget).count() and not countries: return []
+    if countries: qs=[f'{q} "{c.name}" {" ".join(c.keywords or [])}' for q in qs for c in countries]
     # dedupe and cap to protect API quotas
     return list(dict.fromkeys(qs))[:30]
 
@@ -38,8 +43,7 @@ def _serper(q):
     return [{'title':x.get('title',''),'url':x.get('link',''),'description':x.get('snippet',''),'source':'Global Web Search'} for x in data.get('organic',[])]
 
 def _rss(url,name):
-    with httpx.Client(timeout=25,follow_redirects=True,headers={'User-Agent':'VTAB-Opportunity-Agent/1.0'}) as c:
-        response=c.get(url); response.raise_for_status(); raw=response.text
+    raw=public_get(url).text
     root=ET.fromstring(raw); out=[]
     for item in root.findall('.//item')[:50]:
         out.append({'title':item.findtext('title') or '', 'url':item.findtext('link') or '', 'description':re.sub('<[^>]+>',' ',html.unescape(item.findtext('description') or '')), 'source':name})
@@ -50,8 +54,7 @@ def _rss(url,name):
     return out
 
 def _website(url,name):
-    with httpx.Client(timeout=25,follow_redirects=True,headers={'User-Agent':'VTAB-Opportunity-Agent/1.0'}) as c:
-        response=c.get(url); response.raise_for_status(); text=response.text
+    text=public_get(url).text
     title=re.search(r'<title[^>]*>(.*?)</title>',text,re.I|re.S); clean=re.sub(r'\s+',' ',re.sub('<[^>]+>',' ',text))[:12000]
     return [{'title':html.unescape(title.group(1)).strip() if title else name,'url':url,'description':clean[:1500],'source':name}]
 
@@ -65,12 +68,20 @@ def match(db,text):
     return score,matches,list(dict.fromkeys(evidence)),intent_hits
 
 def run_discovery(db:Session):
+    if settings.demo_mode:
+        from app.seed import seed_demo
+        before=db.query(Opportunity).count()
+        samples=seed_demo(db)
+        return {'provider':'DEMO','queries_generated':0,'raw_results':len(samples),'new_opportunities':db.query(Opportunity).count()-before,'qualified':0,'errors':[],'demo_data_used':True}
+
     seed_defaults(db); raw=[]; errors=[]; qlist=queries(db)
     for src in db.query(DiscoverySource).filter(DiscoverySource.active==True).all():
         try:
             if src.source_type=='WEB_SEARCH':
                 if not settings.serper_api_key: errors.append({'source':src.name,'message':'SERPER_API_KEY not configured; web-search connector skipped.'}); continue
-                for q in qlist: raw.extend([{**x,'query':q} for x in _serper(q)])
+                for q in qlist:
+                    target_query=q+' '+ ' OR '.join(src.countries or []) if src.countries and 'Global' not in src.countries else q
+                    raw.extend([{**x,'query':target_query} for x in _serper(target_query)])
             elif src.source_type=='RSS' and src.base_url: raw.extend([{**x,'query':'RSS feed'} for x in _rss(src.base_url,src.name)])
             elif src.source_type=='WEBSITE' and src.base_url: raw.extend([{**x,'query':'Configured website scan'} for x in _website(src.base_url,src.name)])
         except Exception as e: errors.append({'source':src.name,'message':str(e)[:240]})
@@ -79,15 +90,26 @@ def run_discovery(db:Session):
         url=(x.get('url') or '').strip()
         if not url or url in seen: continue
         seen.add(url)
-        if db.query(Opportunity).filter(Opportunity.source_url==url).first(): continue
+        from app.models.intelligence import DiscoveryOccurrence
+        from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
+        parts=urlsplit(url)
+        url=urlunsplit((parts.scheme.lower(),parts.netloc.lower(),parts.path.rstrip('/'),urlencode([(k,v) for k,v in parse_qsl(parts.query) if not k.lower().startswith('utm_')]),''))
+        existing=db.query(Opportunity).filter(Opportunity.source_url==url).first()
+        if not existing:
+            # Exact normalized title and source host; fuzzy matching is deferred for human review.
+            from sqlalchemy import func
+            existing=db.query(Opportunity).filter(func.lower(Opportunity.title)==(x.get('title') or '').strip().lower(),Opportunity.source_url.like(f'%{urlparse(url).netloc}%')).first()
+        if existing:
+            db.add(DiscoveryOccurrence(opportunity_id=existing.id,source_url=url,source_name=x.get('source','Discovery')))
+            continue
         text=f"{x.get('title','')} {x.get('description','')}"; score,services,evidence,intents=match(db,text)
         if score<45: continue
         host=urlparse(url).netloc.replace('www.','') or x.get('source','Unknown')
         company=db.query(Company).filter(Company.website==f'https://{host}').first()
         if not company:
             company=Company(name=host,website=f'https://{host}',country='Unknown',description=f'Discovered from {x.get("source")}'); db.add(company); db.flush()
-        o=Opportunity(company_id=company.id,title=(x.get('title') or 'Discovered opportunity')[:500],source_name=x.get('source','Live Discovery'),source_url=url,country='Unknown',published_date=date.today(),closing_date=None,description=(x.get('description') or '')[:6000],qualification_score=score,qualification_status='QUALIFIED' if score>=65 else 'UNDER_REVIEW',business_fit='HIGH' if score>=80 else ('MEDIUM' if score>=65 else 'LOW'),pipeline_status='QUALIFIED' if score>=65 else 'UNDER_REVIEW',matched_services=services,relevance_reason=f"Live source matched VTAB portfolio. Evidence: {', '.join(evidence[:8])}. Buyer intent: {', '.join(intents[:5])}. Discovery query: {x.get('query','')}")
-        db.add(o); created+=1; qualified+=int(score>=65)
+        o=Opportunity(company_id=company.id,title=(x.get('title') or 'Discovered opportunity')[:255],source_name=x.get('source','Live Discovery'),source_url=url,country='Unknown',published_date=None,closing_date=None,description=(x.get('description') or '')[:6000],qualification_score=None,qualification_status='PENDING',business_fit=None,pipeline_status='DISCOVERED',matched_services=services,relevance_reason=f"Discovery relevance hint; structured qualification is pending. Portfolio evidence: {', '.join(evidence[:8])}. Buyer intent: {', '.join(intents[:5])}. Discovery query: {x.get('query','')}")
+        db.add(o);db.flush();db.add(DiscoveryOccurrence(opportunity_id=o.id,source_url=url,source_name=o.source_name)); created+=1
     db.commit()
     result={'provider':'SERPER' if settings.serper_api_key else 'CONFIGURED_SOURCES','queries_generated':len(qlist),'raw_results':len(raw),'new_opportunities':created,'qualified':qualified,'errors':errors,'demo_data_used':False}
     db.add(AgentRun(agent_name='Global Opportunity Discovery Agent',input_json={'queries':qlist[:10]},output_json=result,status='SUCCESS' if raw or not errors else 'WARNING')); db.commit(); return result

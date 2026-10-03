@@ -9,6 +9,8 @@ from app.models import entities as _entities  # noqa: F401
 from app.models import sales_followup as _sales_followup  # noqa: F401
 from app.models import platform as _platform  # noqa: F401
 
+from app.models import intelligence as _intelligence
+from app.api.intelligence_routes import r as intelligence_router
 from app.api.routes import r as core_router
 from app.api.sales_intelligence_routes import r as sales_intelligence_router
 from app.api.integration_routes import r as integration_router
@@ -64,6 +66,7 @@ def startup() -> None:
     _scheduler.start()
 
 
+app.include_router(intelligence_router)
 app.include_router(auth_router)
 app.include_router(core_router)
 app.include_router(sales_intelligence_router)

@@ -2,7 +2,7 @@
 import argparse,json
 from sqlalchemy import inspect
 from app.models.db import engine,Base
-from app.models import entities,sales_followup,platform
+from app.models import entities,sales_followup,platform,intelligence
 parser=argparse.ArgumentParser();parser.add_argument('--add-auth-session',action='store_true');args=parser.parse_args()
 try:
  if args.add_auth_session:platform.AuthSession.__table__.create(engine,checkfirst=True)

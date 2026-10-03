@@ -396,6 +396,9 @@ def gd(
 
     )
 
+    if opportunity.qualification_status != 'QUALIFIED':
+        raise HTTPException(409, 'Qualify the opportunity before generating outreach.')
+
     # --------------------------------------------------------
 
     # Check for existing draft waiting for approval

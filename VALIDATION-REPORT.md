@@ -1,3 +1,5 @@
+> Historical UI checkpoint. Current Phase 1 implementation results are in docs/PHASE-1-VALIDATION.md.
+
 # VTAB AI Sales Intelligence — UI repair validation, 3 October 2026
 
 ## Outcome

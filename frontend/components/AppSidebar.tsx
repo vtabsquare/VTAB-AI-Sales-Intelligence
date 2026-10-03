@@ -103,6 +103,7 @@ const primary = [
 ];
 
 const intelligence = [
+  { href: "/knowledge", label: "Knowledge Base", icon: "workflow" as IconName },
   { href: "/discovery", label: "Discovery Engine", icon: "opportunities" as IconName },
   { href: "/portfolio", label: "Portfolio Studio", icon: "workflow" as IconName },
   { href: "/responses", label: "Response Center", icon: "responses" as IconName },

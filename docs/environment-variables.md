@@ -1,34 +1,21 @@
-# VTAB Global Opportunity Agent
+# Environment variables
+| Variable | Purpose |
+|---|---|
+| DATABASE_URL | SQLAlchemy PostgreSQL, SQLite test or existing SQL Server connection |
+| POSTGRES_PASSWORD | Generated local Docker database password |
+| LOGIN_EMAIL / LOGIN_PASSWORD | Single-operator development sign-in |
+| JWT_SECRET | Private session signing key |
+| DEMO_MODE | Simulates outbound delivery and uses labeled synthetic discovery |
+| DEMO_AUTH / DEMO_OTP | Explicit development-only local OTP; default disabled / 123456 |
+| INITIALIZE_SCHEMA | Legacy/test convenience; false for migrations/deployment |
+| SCHEDULER_ENABLED | Embedded scheduler; false when using the separate worker |
+| AI_PROVIDER | local, openai or azure; local is a deterministic fallback, not semantic AI |
+| AI_ENDPOINT | Chat completions endpoint; Azure users supply their deployment/API-version URL |
+| OPENAI_API_KEY / OPENAI_MODEL | Provider credential and compatible structured-output model |
+| SERPER_API_KEY | Optional live web search credential |
+| MICROSOFT_TENANT_ID / MICROSOFT_CLIENT_ID / MICROSOFT_CLIENT_SECRET / MICROSOFT_SENDER_EMAIL | Existing Microsoft Graph service identity |
+| API_BASE_URL | Server-only frontend backend URL; Docker uses http://backend:8001 |
+| QUALIFICATION_THRESHOLD / DAILY_OUTREACH_LIMIT | Existing qualification and outbound limits |
+| REDIS_URL | Reserved queue connection; current scheduler uses database state |
 
-Runnable Phase-1 implementation of VTAB's agentic opportunity intelligence platform.
-
-## Architecture
-Next.js UI -> FastAPI API -> deterministic workflow/services + specialized agent run log -> PostgreSQL. Redis is included for production background-job evolution. External search, OpenAI, Entra and Microsoft Graph are adapter boundaries; Demo Mode works without credentials.
-
-## Run
-```bash
-docker compose up --build
-```
-Open http://localhost:3000 and API docs at http://localhost:8000/docs.
-
-Seed opportunities:
-```bash
-curl -X POST http://localhost:8000/api/opportunities/discover
-```
-Then qualify/research/find-contact/generate outreach using Swagger or REST endpoints.
-
-## Test
-```bash
-cd backend
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-pytest -q
-```
-
-## Safety
-`DEMO_MODE=true` never sends real email. Outreach send requires `APPROVED`. Contacts have verification state; the demo contact intentionally has no invented email. Production credentials are environment-only.
-
-## Phase 1 scope
-Implemented: opportunity persistence, demo discovery, URL deduplication, deterministic qualification dimensions, research trace, contact safety, capability match, outreach generation, approval queue, simulated sending, response simulation, dashboard and agent logs.
-
-Production enablement still requires Entra auth/RBAC enforcement, Alembic-managed schema rollout, live permitted search adapters, OpenAI provider calls, pgvector ingestion, Microsoft Graph, Celery schedules, compliance rules by jurisdiction, and full observability.
+Compose intentionally fixes local demo mode and local AI. Switch to a separately reviewed production deployment configuration for live integrations. Never put credentials into NEXT_PUBLIC variables.

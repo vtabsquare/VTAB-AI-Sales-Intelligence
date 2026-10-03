@@ -42,6 +42,7 @@ def test_graph_otp_request_contract(client):
 def test_graph_sync_response_followup_pipeline(authorized):
     c=authorized
     with SessionLocal() as db:oid=discover(db)[0].id
+    c.post(f'/api/opportunities/{oid}/qualify')
     did=c.post(f'/api/opportunities/{oid}/generate-outreach').json()['id']
     c.patch(f'/api/outreach/{did}',json={'subject':'QA Outreach'})
     c.patch(f'/api/outreach/{did}/recipient',json={'email':'reply@example.com'})
@@ -92,6 +93,7 @@ def test_null_services_serialization(authorized):
 def test_explicit_confirmation_required(authorized):
     c=authorized
     with SessionLocal() as db:oid=discover(db)[0].id
+    c.post(f'/api/opportunities/{oid}/qualify')
     did=c.post(f'/api/opportunities/{oid}/generate-outreach').json()['id'];c.post(f'/api/outreach/{did}/approve')
     c.patch(f'/api/outreach/{did}/recipient',json={'email':'confirmed@example.com'});c.post(f'/api/outreach/{did}/test-verify-recipient')
     assert c.post(f'/api/outreach/{did}/send').status_code==409

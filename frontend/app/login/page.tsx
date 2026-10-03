@@ -13,6 +13,7 @@ export default function LoginPage() {
 
     const [password, setPassword] = useState("");
 
+    const [demoAuth,setDemoAuth]=useState(false);
     const [otp, setOtp] = useState("");
 
     const [loading, setLoading] = useState(false);
@@ -57,6 +58,7 @@ export default function LoginPage() {
                 );
             }
 
+            setDemoAuth(data.demo_auth===true);
             setStep("OTP");
 
             setMessage(
@@ -403,10 +405,10 @@ export default function LoginPage() {
                                             IDENTITY VERIFICATION
                                         </div>
 
-                                        <h2>Check your inbox</h2>
+                                        <h2>{demoAuth?"Verify development demo":"Check your inbox"}</h2>
 
                                         <p>
-                                            We sent a six-digit security code to
+                                            {demoAuth?"Development OTP for":"We sent a six-digit security code to"}
                                             <strong className="email-display">
                                                 {" "}
                                                 {email}
@@ -447,8 +449,7 @@ export default function LoginPage() {
                                             />
 
                                             <small>
-                                                Enter the six-digit code from
-                                                your Microsoft 365 mailbox.
+                                                {demoAuth?"Use the local DEMO_OTP (default 123456). No email was sent.":"Enter the six-digit code from your Microsoft 365 mailbox."}
                                             </small>
                                         </div>
 
