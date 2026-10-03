@@ -1,16 +1,26 @@
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     app_env: str = "development"
 
-    # Windows-native default. Override DATABASE_URL in backend/.env.
-    database_url: str = (
-        "mssql+pyodbc://@localhost/VTABOpportunityAgent"
-        "?driver=ODBC+Driver+18+for+SQL+Server"
-        "&trusted_connection=yes"
-        "&TrustServerCertificate=yes"
-    )
+    # Neon PostgreSQL for cloud deployment; override using private DATABASE_URL.
+    database_url: str = "postgresql+psycopg://localhost/vtab_sales"
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def normalize_database_url(cls, value: str) -> str:
+        # Neon supplies a standard PostgreSQL URI; select the installed Psycopg 3 driver.
+        from sqlalchemy.engine import make_url
+        url = make_url(value)
+        if url.drivername in {"postgres", "postgresql"}:
+            url = url.set(drivername="postgresql+psycopg")
+        if (url.host or "").endswith(".neon.tech"):
+            query = dict(url.query)
+            query["sslmode"] = "verify-full"
+            url = url.set(query=query)
+        return url.render_as_string(hide_password=False)
 
     initialize_schema: bool = False
     scheduler_enabled: bool = True

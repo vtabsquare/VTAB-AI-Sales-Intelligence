@@ -1,6 +1,6 @@
 # VTAB AI Sales Intelligence
 
-VTAB Global Opportunity Intelligence for VTAB Square Private Limited. **Windows-native Python + Next.js + SQL Server** is the supported setup. Docker and PostgreSQL are not required.
+VTAB Global Opportunity Intelligence for VTAB Square Private Limited. **Native Python + Next.js on Render with Neon PostgreSQL** is the current cloud deployment. No Docker is required. See [Render + Neon deployment](docs/RENDER-DEPLOYMENT.md). The Windows/SQL Server instructions below remain available for legacy local setups.
 
 ## Setup
 Install Python 3.12, Node.js 22, SQL Server and Microsoft ODBC Driver 18 for SQL Server. From the repository folder:
@@ -33,7 +33,7 @@ For an isolated offline demo, explicitly set DEMO_AUTH=true in development only;
 Discovery → Opportunities → select a record → Run / resume to approval → inspect seven qualification dimensions and approved knowledge → Approval Queue. Knowledge Base manages factual evidence. Country targets, opportunity search, country/stage filters, pagination and CSV export are available.
 
 ## Validation and release boundary
-37 backend tests, 25 clean-build browser checks, TypeScript and production build passed. Live Microsoft 365 and your existing SQL Server migration/connection acceptance remain pending. Docker/PostgreSQL validation is not a release requirement.
+37 backend tests, 25 clean-build browser checks, TypeScript and production build passed. Microsoft 365 authentication and Inbox read access passed. Full Inbox import acceptance remains pending. Neon PostgreSQL is now the authorized cloud database; live Neon and Render acceptance are pending.
 See [validation](docs/PHASE-1-VALIDATION.md), [local setup](docs/local-development.md), [database](docs/database-schema.md), [security](docs/security.md), [agent design](docs/agent-design.md) and [feature boundary](docs/requirements-status.md).
 The master prompt is preserved for reference; your Windows-native/no-Docker instruction takes precedence over its generic stack suggestions. Entra SSO/RBAC, vector retrieval and later-phase modules remain future work.
 

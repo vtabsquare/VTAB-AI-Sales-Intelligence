@@ -1,4 +1,4 @@
-"""Read-only SQL Server/schema and Microsoft Graph acceptance. Never sends email."""
+"""Read-only database/schema and Microsoft Graph acceptance. Never sends email."""
 import json
 import os
 from datetime import datetime,timezone
@@ -25,7 +25,7 @@ try:
             if absent:missing[name]=absent
         result['database']={'connection':'PASS','schema':'PASS' if not missing else 'FAIL','missing':missing}
 except Exception as exc:
-    result['database']={'connection':'FAIL','error_type':type(exc).__name__,'action':'Check SQL Server availability, DATABASE_URL and Microsoft ODBC Driver 18. No database changes were made.'}
+    result['database']={'connection':'FAIL','error_type':type(exc).__name__,'action':'Check database availability, DATABASE_URL and the configured driver. No database changes were made.'}
 required=[settings.microsoft_tenant_id,settings.microsoft_client_id,settings.microsoft_client_secret,settings.microsoft_sender_email]
 if not all(required):result['microsoft']={'status':'NOT_CONFIGURED'}
 else:

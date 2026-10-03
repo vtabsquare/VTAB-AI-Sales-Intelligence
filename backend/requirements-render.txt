@@ -1,2 +1,2 @@
 -r requirements.txt
-pymssql==2.3.13
+# Neon uses psycopg[binary], already included in requirements.txt.

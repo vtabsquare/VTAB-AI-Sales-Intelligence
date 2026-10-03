@@ -16,4 +16,4 @@ try:
  print(json.dumps({'status':'PASS' if not missing else 'FAIL','missing':missing,'existing_columns':details},indent=2))
  raise SystemExit(1 if missing else 0)
 except Exception:
- print('FAIL: Database schema could not be inspected. Verify SQL Server connectivity and installed ODBC driver. Credentials are not displayed.');raise SystemExit(2)
+ print('FAIL: Database schema could not be inspected. Verify database connectivity, DATABASE_URL and the configured driver. Credentials are not displayed.');raise SystemExit(2)

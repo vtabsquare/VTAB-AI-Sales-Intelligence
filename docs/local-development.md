@@ -1,3 +1,5 @@
+> Current cloud target: native Render services + Neon PostgreSQL, as authorized on 2026-10-03. See [cloud deployment](RENDER-DEPLOYMENT.md). SQL Server instructions below are for legacy local setups. No Docker is required.
+
 # Windows-native local development
 Python 3.12, Node.js 22, SQL Server and Microsoft ODBC Driver 18 are prerequisites. No Docker or PostgreSQL installation is required.
 Run scripts/setup-windows.bat. Preserve private backend/.env and frontend/.env.local, and configure the existing SQL Server DATABASE_URL. Configure LOGIN_EMAIL, LOGIN_PASSWORD, JWT_SECRET and Graph credentials locally.
