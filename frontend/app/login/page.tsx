@@ -1,5 +1,6 @@
 "use client";
 import {apiFetch, apiJson, reportApiError} from "../../lib/api";
+import {waitForBackend} from "../../lib/backendReadiness";
 
 
 import { FormEvent, useState } from "react";
@@ -32,6 +33,8 @@ export default function LoginPage() {
         setMessage("");
 
         try {
+            await waitForBackend(() => setMessage('Starting your workspace. The free hosting service is waking up; please keep this page open.'));
+            setMessage("");
             const response = await apiFetch(`${API}/auth/login`, {
                 method: "POST",
 

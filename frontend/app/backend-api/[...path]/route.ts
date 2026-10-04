@@ -45,7 +45,7 @@ async function proxy(
       headers,
       body,
       cache: "no-store",
-      signal: AbortSignal.timeout(backendPath.includes('discovery') ? 900000 : 120000),
+      signal: AbortSignal.timeout(backendPath === 'health' ? 25000 : backendPath.includes('discovery') ? 900000 : 120000),
     });
 
     const responseBody = await upstream.arrayBuffer();
@@ -83,12 +83,9 @@ async function proxy(
     }
     return outgoing;
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Unknown proxy error";
-
     return NextResponse.json(
       {
-        detail: "Frontend could not reach the VTAB backend.",
+        detail: "The service is starting or temporarily unavailable. Please try again shortly.",
 
       },
       { status: 502 }
