@@ -39,6 +39,7 @@ def classify_message(sender_email,subject,body,mailbox=""):
         return {"classification":"INTERNAL","sentiment":"NEUTRAL","summary":"Internal VTAB mailbox message; excluded from customer-response KPIs.","suggested_action":"No sales follow-up is created automatically.","confidence":98,"review_required":False}
     if "mailer-daemon" in email or "postmaster" in email or any(x in text for x in ("undeliverable","delivery status notification","delivery has failed","returned mail")):
         return {"classification":"BOUNCE_NDR","sentiment":"NEUTRAL","summary":"Delivery/bounce notification; not a customer response.","suggested_action":"Review recipient deliverability before future outreach.","confidence":96,"review_required":True}
+    if any(x in text for x in NEGATIVE): return {"classification":"NOT_INTERESTED","sentiment":"NEGATIVE","summary":"The recipient appears to decline further outreach.","suggested_action":"Close or suppress follow-up after human review.","confidence":90,"review_required":True}
     # Procurement notifications are operationally valuable even when sent from a no-reply address,
     # so classify them before the generic automated-notification rule.
     if any(x in text for x in PROCUREMENT_WORDS) or "etenders" in domain:
@@ -60,19 +61,20 @@ def _token(client):
     r=client.post(f"https://login.microsoftonline.com/{settings.microsoft_tenant_id.strip()}/oauth2/v2.0/token",data={"client_id":settings.microsoft_client_id.strip(),"client_secret":settings.microsoft_client_secret.strip(),"scope":"https://graph.microsoft.com/.default","grant_type":"client_credentials"}); r.raise_for_status(); return r.json()["access_token"]
 
 def _context(db,email,subject=""):
-    # 1) strongest match: known contact email
-    c=db.query(Contact).filter(func.lower(Contact.email)==email.lower()).first()
-    if c:
-        d=db.query(OutreachDraft).filter(OutreachDraft.contact_id==c.id).order_by(OutreachDraft.created_at.desc()).first()
-        if d:return d.opportunity_id,d.id
-    # 2) subject/thread match to an outreach draft
+    # Match only previously sent outreach to this exact address. A shared mailbox
+    # with multiple opportunities must have a matching subject; never pick the latest blindly.
+    contacts=db.query(Contact).filter(func.lower(Contact.email)==email.lower()).all()
+    ids=[c.id for c in contacts]
+    drafts=db.query(OutreachDraft).filter(OutreachDraft.contact_id.in_(ids),
+        OutreachDraft.status=='SENT').order_by(OutreachDraft.created_at.desc()).all() if ids else []
     needle=_norm_subject(subject)
     if needle:
-        drafts=db.query(OutreachDraft).order_by(OutreachDraft.created_at.desc()).limit(500).all()
         for d in drafts:
             ds=_norm_subject(d.subject)
-            if db.get(Contact,d.contact_id) and (db.get(Contact,d.contact_id).email or "").lower()==email.lower() and ds and (needle==ds or (len(ds)>18 and (ds in needle or needle in ds))):
+            if ds and needle==ds:
                 return d.opportunity_id,d.id
+    if len({d.opportunity_id for d in drafts})==1:
+        return drafts[0].opportunity_id,drafts[0].id
     return None,None
 
 def _suggested_reply(response):
@@ -92,8 +94,16 @@ def _make_followup(db,response):
     if not response.opportunity_id or response.classification not in {"INTERESTED","NEEDS_INFO","FOLLOW_UP_LATER"}: return
     exists=db.query(FollowUpTask).filter(FollowUpTask.response_id==response.id).first()
     if exists:return
-    days=1 if response.classification in {"INTERESTED","NEEDS_INFO"} else 7
-    db.add(FollowUpTask(opportunity_id=response.opportunity_id,outreach_draft_id=response.outreach_draft_id,response_id=response.id,status="PENDING",action_type="RESPOND" if response.classification in {"INTERESTED","NEEDS_INFO"} else "FOLLOW_UP",due_at=datetime.now(timezone.utc)+timedelta(days=days),reason=response.suggested_action,draft_subject=f"Re: {response.subject}",draft_body=response.suggested_reply or _suggested_reply(response),human_approved=False))
+    now=datetime.now(timezone.utc)
+    due=now+timedelta(days=1 if response.classification in {"INTERESTED","NEEDS_INFO"} else 7)
+    if response.classification=='FOLLOW_UP_LATER':
+        text=response.body_text.lower()
+        months=3 if 'next quarter' in text else 1 if 'next month' in text else 0
+        if months:
+            import calendar
+            year=now.year+(now.month-1+months)//12;month=(now.month-1+months)%12+1
+            due=now.replace(year=year,month=month,day=min(now.day,calendar.monthrange(year,month)[1]))
+    db.add(FollowUpTask(opportunity_id=response.opportunity_id,outreach_draft_id=response.outreach_draft_id,response_id=response.id,status="PENDING",action_type="RESPOND" if response.classification in {"INTERESTED","NEEDS_INFO"} else "FOLLOW_UP",due_at=due,reason=response.suggested_action,draft_subject=f"Re: {response.subject}",draft_body=response.suggested_reply or _suggested_reply(response),human_approved=False))
 
 def _apply_intelligence(db,response):
     oid,did=_context(db,response.sender_email,response.subject)
@@ -102,10 +112,12 @@ def _apply_intelligence(db,response):
     for k,v in result.items(): setattr(response,k,v)
     response.suggested_reply=_suggested_reply(response)
     if oid and response.classification in QUALIFIED:
+        from app.services.casebooks import record_inbound
+        record_inbound(db,response)
         opportunity = db.get(Opportunity, oid)
         if opportunity and opportunity.pipeline_status not in {'WON','LOST','CLOSED'}:
             opportunity.pipeline_status = 'RESPONDED'
-    if response.classification=='NOT_INTERESTED' and any(x in (response.body_text or '').lower() for x in ('unsubscribe','remove me','do not contact')):
+    if any(x in (response.body_text or '').lower() for x in ('unsubscribe','remove me','do not contact')):
         for contact in db.query(Contact).filter(func.lower(Contact.email)==response.sender_email.lower()).all():
             contact.do_not_contact=True
         if not db.query(Suppression).filter(func.lower(Suppression.email)==response.sender_email.lower()).first():
@@ -143,6 +155,10 @@ def sync_inbox(db):
         url=state.delta_link or f"https://graph.microsoft.com/v1.0/users/{__import__('urllib.parse',fromlist=['quote']).quote(mailbox,safe='')}/mailFolders/inbox/messages/delta?$select=id,internetMessageId,subject,from,receivedDateTime,body"
         processed=0; final_delta=None; counts={}
         while url:
+            from urllib.parse import urlparse
+            parsed=urlparse(url)
+            if parsed.scheme!='https' or parsed.hostname!='graph.microsoft.com' or parsed.username or parsed.password:
+                raise RuntimeError('Unexpected Microsoft Graph delta URL. Reset the mailbox sync cursor after review.')
             r=client.get(url,headers=headers); r.raise_for_status(); payload=r.json()
             for m in payload.get("value",[]):
                 gid=m.get("id")

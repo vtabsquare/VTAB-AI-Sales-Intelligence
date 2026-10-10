@@ -96,6 +96,7 @@ function Icon({ name }: { name: IconName }) {
 
 const primary = [
   { href: "/", label: "Dashboard", icon: "dashboard" as IconName },
+  { href: "/sales-manager", label: "Sales Manager", icon: "agents" as IconName },
   { href: "/workflow", label: "Workflow Center", icon: "workflow" as IconName },
   { href: "/opportunities", label: "Opportunities", icon: "opportunities" as IconName },
   { href: "/approval", label: "Approval Queue", icon: "approval" as IconName },

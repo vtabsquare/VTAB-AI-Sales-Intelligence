@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from sqlalchemy.orm import Session
 from app.models.entities import *
 SERVICES=['Databricks','Microsoft Fabric','Power BI','Data Engineering','Data Migration','SQL Server Modernization','Cloud Migration','AI Applications','AI Agents','Automation','Power Platform','Dynamics 365','Custom Application Development','IT Consulting','Offshore Development']
@@ -42,6 +42,11 @@ def research(db,o):
          'inferences':[],'sources':[o.source_url], 'evidence_status':evidence['status'],
          'message':'Source evidence fetched.' if evidence['status']=='FETCHED' else 'External evidence unavailable; stored opportunity context returned.'}
     if o.pipeline_status in {'DISCOVERED','UNDER_REVIEW','QUALIFIED','RESEARCHING'}: o.pipeline_status='RESEARCHING'
+    from app.models.sales_agent import OrganizationResearch
+    row=db.get(OrganizationResearch,o.id) or OrganizationResearch(opportunity_id=o.id)
+    row.summary=summary;row.published_emails=evidence.get('emails',[]);row.published_phones=evidence.get('phones',[])
+    row.source_url=o.source_url;row.evidence_status=evidence['status'];row.researched_at=datetime.utcnow();db.add(row)
+    out['published_email_candidates']=row.published_emails;out['published_phone_candidates']=row.published_phones
     db.commit();log(db,'Company Research Agent',{'opportunity_id':o.id},out);return out
 
 def find_contact(db,o):
@@ -71,6 +76,12 @@ def draft(db,o):
     c=db.get(Company,o.company_id); contact=find_contact(db,o); services=', '.join(o.matched_services or [])
     subject=f'{c.name} — support for {o.title}'
     body=f"Hello {contact.full_name},\n\nWe identified your published requirement: {o.title}. Based on the requirement, VTAB Square may be able to support the work through {services}.\n\nWe would be glad to understand the procurement process and discuss where our engineering team could contribute.\n\nRegards,\nBusiness Development Team\nVTAB Square Private Limited"
+    approved_text=' '.join(k['content'] for k in knowledge).lower()
+    initiatives=[]
+    if 'ai' in approved_text and any(t in approved_text for t in ['ai application','artificial intelligence','generative ai']): initiatives.append('AI adoption and applications')
+    if any(t in approved_text for t in ['ai agent','agent development']): initiatives.append('AI agents and workflow automation')
+    if initiatives:
+        body=body.replace('\n\nWe would be glad', '\n\nOur relevant initiatives include '+', '.join(initiatives)+'. We can explore their fit after understanding your priorities.\n\nWe would be glad')
     from app.core.config import settings
     if not settings.demo_mode and settings.ai_provider != 'local':
         from app.agents.provider import StructuredProvider
@@ -83,6 +94,7 @@ def draft(db,o):
             risk_flags:list[str]
         result=StructuredProvider().generate('outreach',{'opportunity':{'title':o.title,'description':o.description,'source_url':o.source_url},'company':c.name,'matched_services':o.matched_services,'approved_knowledge':knowledge},OutreachResult)
         subject=result.subject;body=result.body_text
+    body += '\n\nIf this is not relevant, let us know and we will stop further outreach.'
     d=OutreachDraft(opportunity_id=o.id,contact_id=contact.id,subject=subject,body_text=body,status='WAITING_APPROVAL'); db.add(d); o.pipeline_status='OUTREACH_READY'; db.commit(); log(db,'Outreach Agent',{'opportunity_id':o.id},{'draft_id':d.id,'status':d.status}); return d
 def send(db, d):
     """
@@ -134,6 +146,8 @@ def send(db, d):
     )
 
     from sqlalchemy import update
+    from app.services.sales_manager import reserve_daily_send
+    reserve_daily_send(db)
     claimed = db.execute(update(OutreachDraft).where(OutreachDraft.id==d.id, OutreachDraft.status=='APPROVED').values(status='SENDING'))
     if claimed.rowcount != 1:
         db.rollback()
@@ -178,7 +192,12 @@ def send(db, d):
     )
 
     o = db.get(Opportunity, d.opportunity_id)
-    o.pipeline_status = 'CONTACTED'
+    if o.pipeline_status not in {'RESPONDED','ENGAGED','WON','LOST','CLOSED'}:
+        o.pipeline_status = 'CONTACTED'
+
+    from app.services.casebooks import record_action
+    record_action(db,d.opportunity_id,'outbound:'+d.id,'OUTBOUND',d.subject,d.body_text,
+                  {'delivery_status':delivery_status,'recipient':contact.email})
 
     db.commit()
 

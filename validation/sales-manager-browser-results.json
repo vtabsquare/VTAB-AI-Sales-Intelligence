@@ -1,0 +1,23 @@
+{
+  "checks_passed": 15,
+  "checks": [
+    "Sales Manager requires login",
+    "OTP login and HttpOnly session",
+    "Sales cycle creates reviewed local response draft",
+    "Unsaved response cannot be approved",
+    "Approved edited response sent in demo cycle",
+    "Casebook contains incoming reply, approval and simulated outbound",
+    "Owner case status and notes persist",
+    "Company repository source saved",
+    "Demo source imports skip external accounts",
+    "Responsive Sales Manager and scrolling navigation 1280x720",
+    "Responsive Sales Manager and scrolling navigation 768x480",
+    "Responsive Sales Manager and scrolling navigation 390x844",
+    "Five-minute complete sales cycle schedule",
+    "Logout",
+    "No browser JavaScript errors"
+  ],
+  "database": "disposable SQLite with Alembic migrations",
+  "mode": "demo",
+  "external_sends": 0
+}

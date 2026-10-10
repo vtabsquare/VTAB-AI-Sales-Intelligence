@@ -35,9 +35,15 @@ class Settings(BaseSettings):
     ai_provider: str = "local"
     ai_endpoint: str = "https://api.openai.com/v1/chat/completions"
     openai_api_key: str = ""
-    openai_model: str = "gpt-5.6"
+    openai_model: str = "gpt-5-mini"
     # Optional live global web-search provider. Without this key, configured RSS/website sources still run.
     serper_api_key: str = ""
+    # Read-only company materials connectors; configure privately, never in the browser.
+    google_client_id: str = ""
+    google_client_secret: str = ""
+    google_refresh_token: str = ""
+    google_drive_folder_ids: str = ""
+    github_read_token: str = ""
 
     # Microsoft Graph application authentication.
     microsoft_tenant_id: str = ""

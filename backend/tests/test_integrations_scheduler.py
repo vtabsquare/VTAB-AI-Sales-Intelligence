@@ -46,6 +46,9 @@ def test_graph_sync_response_followup_pipeline(authorized):
     did=c.post(f'/api/opportunities/{oid}/generate-outreach').json()['id']
     c.patch(f'/api/outreach/{did}',json={'subject':'QA Outreach'})
     c.patch(f'/api/outreach/{did}/recipient',json={'email':'reply@example.com'})
+    c.post(f'/api/outreach/{did}/test-verify-recipient')
+    c.post(f'/api/outreach/{did}/approve')
+    assert c.post(f'/api/outreach/{did}/send',json={'confirmed':True}).status_code==200
     GraphClient.calls=[]
     with graph_config(),patch('httpx.Client',GraphClient):
         assert c.post('/api/integrations/microsoft/test').json()['connected'] is True

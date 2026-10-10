@@ -11,7 +11,7 @@ export default function OperatingStatus(){
  useEffect(()=>{void refresh();const onFocus=()=>void refresh();window.addEventListener("focus",onFocus);return()=>window.removeEventListener("focus",onFocus);},[]);
  return <section className={`operating-status ${status?.demo_mode ? "demo" : status ? "live" : "unknown"}`} aria-label="Operating mode" aria-live="polite">
   <strong>{status ? status.demo_mode ? "DEMO MODE" : "LIVE MODE" : busy ? "CHECKING MODE" : "MODE UNKNOWN"}</strong>
-  <span>{error || (status ? status.demo_mode ? "Customer sends are simulated. Configured inbox sync remains available." : "Approved and confirmed customer sends can use Microsoft 365." : "Checking backend configuration…")}</span>
+  <span>{error || (status ? status.demo_mode ? "Customer sends are simulated. Configured inbox sync remains available." : "Microsoft 365 sends follow owner approvals and the saved sales agent policy." : "Checking backend configuration…")}</span>
   <Link href="/admin">Integration settings</Link>
   <button type="button" disabled={busy} onClick={()=>void refresh()}>{busy ? "Checking…" : "Refresh mode"}</button>
  </section>;

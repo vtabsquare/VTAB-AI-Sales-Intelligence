@@ -2,7 +2,7 @@ from alembic import context
 from sqlalchemy import create_engine
 from app.core.config import settings
 from app.models.db import Base
-from app.models import entities,platform,sales_followup,intelligence
+from app.models import entities,platform,sales_followup,intelligence,sales_agent
 
 target_metadata=Base.metadata
 if context.is_offline_mode():

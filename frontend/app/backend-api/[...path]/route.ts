@@ -45,7 +45,7 @@ async function proxy(
       headers,
       body,
       cache: "no-store",
-      signal: AbortSignal.timeout(backendPath === 'health' ? 25000 : backendPath.includes('discovery') ? 900000 : 120000),
+      signal: AbortSignal.timeout(backendPath === 'health' ? 25000 : backendPath.includes('discovery') || backendPath === 'sales-manager/run' || backendPath === 'sales-manager/sources/sync' || /^platform\/schedules\/[^/]+\/run$/.test(backendPath) ? 1800000 : 120000),
     });
 
     const responseBody = await upstream.arrayBuffer();

@@ -10,6 +10,8 @@ from app.models import sales_followup as _sales_followup  # noqa: F401
 from app.models import platform as _platform  # noqa: F401
 
 from app.models import intelligence as _intelligence
+from app.models import sales_agent as _sales_agent
+from app.api.sales_manager_routes import r as sales_manager_router
 from app.api.intelligence_routes import r as intelligence_router
 from app.api.routes import r as core_router
 from app.api.sales_intelligence_routes import r as sales_intelligence_router
@@ -73,6 +75,7 @@ app.include_router(sales_intelligence_router)
 app.include_router(integration_router)
 
 app.include_router(platform_router)
+app.include_router(sales_manager_router)
 
 
 @app.on_event("shutdown")

@@ -13,6 +13,8 @@ DEFAULT_SERVICES=[
  ('Data Engineering & Modernization','Databricks, lakehouse, ETL and data platform modernization',['databricks','lakehouse','data engineering','etl','data platform','sql server migration']),
  ('AI Applications & Automation','AI applications, agents and workflow automation',['artificial intelligence','generative ai','ai agent','automation','workflow automation']),
  ('Business Applications','Dynamics 365, Power Platform and custom applications',['dynamics 365','power platform','power automate','application development','software development']),
+ ('IT Service & Support','Managed IT support, application maintenance and service desk',['managed it','it support','service desk','application maintenance']),
+ ('Cloud & Infrastructure','Cloud migration and infrastructure modernization',['cloud migration','azure migration','infrastructure modernization','managed cloud']),
 ]
 
 def seed_defaults(db:Session):
@@ -22,7 +24,7 @@ def seed_defaults(db:Session):
         db.add(DiscoverySource(name='Global Web Search',source_type='WEB_SEARCH',base_url='https://google.serper.dev/search',countries=['Global']))
     db.commit()
 
-def queries(db:Session):
+def queries(db:Session,limit=30):
     seed_defaults(db); qs=[]
     for p in db.query(ServicePortfolio).filter(ServicePortfolio.active==True).all():
         terms=(p.keywords or [])[:5] or [p.name]
@@ -33,7 +35,8 @@ def queries(db:Session):
     if db.query(CountryTarget).count() and not countries: return []
     if countries: qs=[f'{q} "{c.name}" {" ".join(c.keywords or [])}' for q in qs for c in countries]
     # dedupe and cap to protect API quotas
-    return list(dict.fromkeys(qs))[:30]
+    unique=list(dict.fromkeys(qs))
+    return unique[:limit] if limit is not None else unique
 
 def _serper(q):
     if not settings.serper_api_key: return []
@@ -74,13 +77,24 @@ def run_discovery(db:Session):
         samples=seed_demo(db)
         return {'provider':'DEMO','queries_generated':0,'raw_results':len(samples),'new_opportunities':db.query(Opportunity).count()-before,'qualified':0,'errors':[],'demo_data_used':True}
 
-    seed_defaults(db); raw=[]; errors=[]; qlist=queries(db)
+    seed_defaults(db); raw=[]; errors=[]
+    from app.models.sales_agent import DiscoverySearchState
+    all_queries=queries(db,limit=None)
+    state=db.get(DiscoverySearchState,'global') or DiscoverySearchState(id='global',query_offset=0)
+    offset=state.query_offset%len(all_queries) if all_queries else 0
+    rotated=all_queries[offset:]+all_queries[:offset]
+    qlist=rotated[:30]
+    state.query_offset=(offset+len(qlist))%len(all_queries) if all_queries else 0
+    db.add(state);db.commit()
     for src in db.query(DiscoverySource).filter(DiscoverySource.active==True).all():
         try:
             if src.source_type=='WEB_SEARCH':
                 if not settings.serper_api_key: errors.append({'source':src.name,'message':'SERPER_API_KEY not configured; web-search connector skipped.'}); continue
                 for q in qlist:
                     target_query=q+' '+ ' OR '.join(src.countries or []) if src.countries and 'Global' not in src.countries else q
+                    domain=urlparse(src.base_url or '').hostname
+                    if domain and domain!='google.serper.dev':
+                        target_query=f'site:{domain} {target_query}'
                     raw.extend([{**x,'query':target_query} for x in _serper(target_query)])
             elif src.source_type=='RSS' and src.base_url: raw.extend([{**x,'query':'RSS feed'} for x in _rss(src.base_url,src.name)])
             elif src.source_type=='WEBSITE' and src.base_url: raw.extend([{**x,'query':'Configured website scan'} for x in _website(src.base_url,src.name)])

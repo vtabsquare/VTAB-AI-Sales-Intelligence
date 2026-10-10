@@ -7043,3 +7043,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .intelligence-panel p{white-space:pre-wrap;overflow-wrap:anywhere}.score-dimensions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.score-dimensions>div{display:flex;justify-content:space-between;gap:12px;padding:10px;background:#f1f5f9;border-radius:6px}
 @media(max-width:800px){.knowledge-grid,.score-dimensions{grid-template-columns:1fr}}
 .opportunity-filters{display:flex;flex-wrap:wrap;gap:16px;padding:20px;align-items:flex-end}.opportunity-filters label{flex:1;min-width:150px}.opportunity-filters input,.opportunity-filters select{display:block;width:100%;margin-top:8px}.opportunity-pagination{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:center;padding:20px}
+/* Sales manager controls and conversation history. */
+.sales-manager > .ops-panel { margin-top: 24px; }
+.sales-review { border-top: 1px solid #dce4ef; padding: 24px 0; }
+.sales-review label { display: grid; gap: 8px; margin: 14px 0; }
+.sales-review input,.sales-review textarea,.sales-review select { width:100%; padding:12px; border:1px solid #ccd7e5; border-radius:10px; background:white; color:#152840; font:inherit; }
+.sales-review textarea { resize:vertical; }
+.sales-actions,.sales-case-list { display:flex; gap:12px; flex-wrap:wrap; margin:16px 0; }
+.sales-toggle { display:flex!important; align-items:center; gap:10px!important; }
+.sales-toggle input { width:18px!important; height:18px; flex:none; }
+.sales-event { border-left:3px solid #6296e8; margin:18px 0; padding:12px 18px; overflow-wrap:anywhere; }
+.sales-event h4 { margin:8px 0; }

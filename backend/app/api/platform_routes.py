@@ -10,7 +10,7 @@ from app.services.workflow_scheduler import run_and_record,next_run
 from app.core.config import settings
 r=APIRouter(prefix='/api/platform',tags=['platform'])
 class Item(BaseModel):
-    name:str=''; title:str=''; category:str='Digital Services'; description:str=''; keywords:list[str]=[]; target_buyers:list[str]=[]; active:bool=True; source_type:str='WEB_SEARCH'; base_url:str=''; countries:list[str]=[]; resource_type:str='PRESENTATION'; url:str=''; tags:list[str]=[]; subject:str=''; body_html:str=''; purpose:str='OUTREACH'; asset_type:str='COMPANY_WEBSITE'; action_type:str='DISCOVERY'; interval_minutes:int=Field(default=1440, ge=60, le=525600); timezone:str='Asia/Kolkata'; run_at_time:str='09:00'; enabled:bool=True
+    name:str=''; title:str=''; category:str='Digital Services'; description:str=''; keywords:list[str]=[]; target_buyers:list[str]=[]; active:bool=True; source_type:str='WEB_SEARCH'; base_url:str=''; countries:list[str]=[]; resource_type:str='PRESENTATION'; url:str=''; tags:list[str]=[]; subject:str=''; body_html:str=''; purpose:str='OUTREACH'; asset_type:str='COMPANY_WEBSITE'; action_type:str='DISCOVERY'; interval_minutes:int=Field(default=1440, ge=5, le=525600); timezone:str='Asia/Kolkata'; run_at_time:str='09:00'; enabled:bool=True
 class GenerateRequest(BaseModel):
     prompt:str; tone:str='Professional'; purpose:str='OUTREACH'; company:str=''; opportunity:str=''; services:str=''
 MODELS={'services':ServicePortfolio,'sources':DiscoverySource,'resources':ResourceLink,'templates':EmailTemplate,'assets':CompanyAsset,'schedules':ScheduledWorkflow}
@@ -32,7 +32,9 @@ def schedule_history_for(workflow_id:str,limit:int=100,db:Session=Depends(get_db
 def run_schedule(id:str,db:Session=Depends(get_db)):
     w=db.get(ScheduledWorkflow,id)
     if not w: raise HTTPException(404,'Schedule not found')
-    h=run_and_record(db,w); return {'status':h.status,'history_id':h.id,'result':h.result,'error':h.error}
+    h=run_and_record(db,w)
+    if h is None: raise HTTPException(409,'This workflow is already running.')
+    return {'status':h.status,'history_id':h.id,'result':h.result,'error':h.error}
 @r.post('/templates/generate')
 def generate_template(p:GenerateRequest):
     if not settings.openai_api_key:
@@ -91,7 +93,7 @@ def validate_item(kind, data):
     if kind=='sources' and data.get('source_type') not in {'RSS','WEBSITE','WEB_SEARCH'}: raise HTTPException(422,'Unsupported source type')
     if kind=='templates' and (not data.get('subject','').strip() or not data.get('body_html','').strip()): raise HTTPException(422,'Subject and email content are required')
     if kind=='schedules':
-        if data.get('action_type') not in {'DISCOVERY','INBOX_SYNC','REPROCESS'}: raise HTTPException(422,'Unsupported workflow action')
+        if data.get('action_type') not in {'DISCOVERY','INBOX_SYNC','REPROCESS','SALES_CYCLE','RESOURCE_SYNC'}: raise HTTPException(422,'Unsupported workflow action')
         try:
             ZoneInfo(data.get('timezone') or 'UTC')
             hh,mm = map(int,data.get('run_at_time','09:00').split(':'))

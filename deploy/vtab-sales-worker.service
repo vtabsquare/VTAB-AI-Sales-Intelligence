@@ -1,0 +1,21 @@
+[Unit]
+Description=VTAB Square periodic sales agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=vtab
+WorkingDirectory=/opt/vtab-sales/backend
+EnvironmentFile=/etc/vtab-sales/backend.env
+Environment=SCHEDULER_ENABLED=false
+Environment=INITIALIZE_SCHEMA=false
+ExecStart=/opt/vtab-sales/backend/.venv/bin/python -m app.worker
+Restart=always
+RestartSec=10
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -33,6 +33,9 @@ def approve(task_id:str,db:Session=Depends(get_db)):
     x=db.get(FollowUpTask,task_id)
     if not x: raise HTTPException(404,"Follow-up task not found")
     if x.status != 'PENDING': raise HTTPException(409,'Only pending recommendations may be approved')
+    from app.models.sales_agent import ReplyReview
+    review=db.get(ReplyReview,x.id)
+    if review: review.approved_hash=None  # This older endpoint approves preparation, not scheduled delivery.
     x.human_approved=True;x.status="APPROVED";db.commit();return {"id":x.id,"status":x.status,"message":"Approved for the next human-controlled step. No email was sent."}
 
 @r.post("/follow-ups/{task_id}/dismiss")
@@ -58,6 +61,9 @@ def prepare_followup(task_id:str, db:Session=Depends(get_db)):
     task=db.get(FollowUpTask,task_id)
     if not task: raise HTTPException(404,'Follow-up task not found')
     if not task.human_approved or task.status != 'APPROVED': raise HTTPException(409,'Human approval is required before preparing follow-up outreach')
+    from app.models.sales_agent import ReplyReview
+    review=db.get(ReplyReview,task.id)
+    if review and review.outreach_id: raise HTTPException(409,'This response already has a delivery draft. Review it in Send Center.')
     original=db.get(OutreachDraft,task.outreach_draft_id) if task.outreach_draft_id else None
     if not original or not original.contact_id: raise HTTPException(409,'A matched recipient is required')
     contact=db.get(Contact,original.contact_id)

@@ -5,7 +5,7 @@ import Link from "next/link";
 const stages = [
   { n:"01", title:"Discover Opportunities", tag:"AI AGENT", href:"/opportunities", text:"Find and review global opportunities from permitted sources." },
   { n:"02", title:"Qualify & Research", tag:"AI AGENT", href:"/opportunities", text:"Score fit, research the organization and prepare contact context." },
-  { n:"03", title:"Human Approval", tag:"HUMAN GATE", href:"/approval", text:"Review outreach drafts before anything can progress to delivery." },
+  { n:"03", title:"Human Approval", tag:"HUMAN GATE", href:"/approval", text:"Review detailed responses; initial EOI follows your saved sales agent policy." },
   { n:"04", title:"Controlled Send", tag:"CONTROLLED", href:"/outreach", text:"Verify recipient, confirm final content and send only after approval." },
   { n:"05", title:"Microsoft 365", tag:"INTEGRATION", href:"/admin", text:"Validate the governed Outlook / Microsoft Graph connection." },
   { n:"06", title:"Inbox Sync", tag:"READ ONLY", href:"/responses", text:"Synchronize inbound mailbox messages without moving or deleting mail." },
@@ -57,6 +57,6 @@ export default function WorkflowCenter(){
       <div className="wf-shortcut-grid">{shortcuts.map(([title,href,text])=><Link href={href} className="wf-shortcut" key={href+title}><div className="wf-shortcut-icon">↗</div><div><strong>{title}</strong><span>{text}</span></div><b>→</b></Link>)}</div>
     </section>
 
-    <section className="wf-safety"><div><span>GOVERNANCE</span><h2>Safety controls remain enforced</h2></div><div className="wf-safety-items"><span>✓ Human approval before send</span><span>✓ Verified recipient required</span><span>✓ Read-only inbox sync</span><span>✓ No automatic customer reply</span><span>✓ Final send confirmation</span></div></section>
+    <section className="wf-safety"><div><span>GOVERNANCE</span><h2>Safety controls remain enforced</h2></div><div className="wf-safety-items"><span>✓ Owner approval for detailed responses</span><span>✓ Verified recipient required</span><span>✓ Read-only inbox sync</span><span>✓ Fixed acknowledgements by saved policy</span><span>✓ Content-specific approval and send limits</span></div></section>
   </div>
 }

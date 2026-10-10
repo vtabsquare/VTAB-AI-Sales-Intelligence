@@ -2,12 +2,12 @@
 
 VTAB Global Opportunity Intelligence for VTAB Square Private Limited. **Native Python + Next.js on Render with Neon PostgreSQL** is the current cloud deployment. No Docker is required. See [Render + Neon deployment](docs/RENDER-DEPLOYMENT.md). The Windows/SQL Server instructions below remain available for legacy local setups.
 
-## Setup
+## Legacy Windows/SQL Server setup
 Install Python 3.12, Node.js 22, SQL Server and Microsoft ODBC Driver 18 for SQL Server. From the repository folder:
 ```
 scripts\setup-windows.bat
 ```
-Preserve your working private backend/.env and frontend/.env.local. Configure DATABASE_URL for your existing SQL Server, LOGIN_EMAIL, LOGIN_PASSWORD, JWT_SECRET and Microsoft Graph credentials. Never commit these files.
+Preserve your working private backend/.env and frontend/.env.local. Configure DATABASE_URL for your Neon PostgreSQL database, LOGIN_EMAIL, LOGIN_PASSWORD, JWT_SECRET and Microsoft Graph credentials. Never commit these files.
 
 ## Database migration
 Back up the database first. For an existing application database, from backend:
@@ -32,8 +32,13 @@ For an isolated offline demo, explicitly set DEMO_AUTH=true in development only;
 ## Workflow
 Discovery → Opportunities → select a record → Run / resume to approval → inspect seven qualification dimensions and approved knowledge → Approval Queue. Knowledge Base manages factual evidence. Country targets, opportunity search, country/stage filters, pagination and CSV export are available.
 
+## Sales Manager agent
+
+Open **Sales Manager** to configure periodic service-driven discovery, initial EOI, fixed acknowledgements, AI response analysis/revisions, exact-version owner approval, and client casebooks. Company website/GitHub imports and a read-only Google Drive material catalog enter the owner review process. See [setup, example workflow and live integration requirements](docs/sales-manager.md). Use the supplied native worker service for always-on scheduling; live automation is disabled by default.
+
 ## Validation and release boundary
-37 backend tests, 25 clean-build browser checks, TypeScript and production build passed. Microsoft 365 authentication and Inbox read access passed. Full Inbox import acceptance remains pending. Neon PostgreSQL is now the authorized cloud database; live Neon and Render acceptance are pending.
+
+The Sales Manager release passes 60 backend tests, 15 browser acceptance checks, CI-selected Ruff checks, TypeScript validation and a clean frontend production build. Alembic migrations were executed on isolated SQLite and checked against model metadata; PostgreSQL SQL generation was checked. Live Microsoft 365/Drive/Neon acceptance and installation of an always-on worker are separate deployment tasks. See the browser acceptance harness and release results in `validation/`.
 See [validation](docs/PHASE-1-VALIDATION.md), [local setup](docs/local-development.md), [database](docs/database-schema.md), [security](docs/security.md), [agent design](docs/agent-design.md) and [feature boundary](docs/requirements-status.md).
 The master prompt is preserved for reference; your Windows-native/no-Docker instruction takes precedence over its generic stack suggestions. Entra SSO/RBAC, vector retrieval and later-phase modules remain future work.
 
