@@ -16,7 +16,7 @@ type Provider={demo_mode:boolean;provider:string;configured:boolean;sender?:stri
 
 function Icon({name}:{name:"send"|"shield"|"user"|"check"|"refresh"|"search"|"mail"|"spark"}){
   const p:Record<string,string>={
-    send:"M22 2 11 13",shield:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z",user:"M20 21a8 8 0 0 0-16 0 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z",check:"m20 6-11 11-5-5",refresh:"M20 11a8 8 0 1 0-2.34 5.66 M20 4v7h-7",search:"m21 21-4.35-4.35 M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z",mail:"M4 4h16v16H4z M22 6l-10 7L2 6",spark:"M12 3l1.9 4.1L18 9l-4.1 1.9L12 15l-1.9-4.1L6 9l4.1-1.9L12 3Z"
+    send:"M22 2 11 13",shield:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z",user:"M20 21a8 8 0 0 0-16 0 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z",check:"m20 6-11 11 11-5-5",refresh:"M20 11a8 8 0 1 0-2.34 5.66 M20 4v7h-7",search:"m21 21-4.35-4.35 M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z",mail:"M4 4h16v16H4z M22 6l-10 7L2 6",spark:"M12 3l1.9 4.1L18 9l-4.1 1.9L12 15l-1.9-4.1L6 9l4.1-1.9L12 3Z"
   };
   return <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d={p[name]}/></svg>;
 }
@@ -122,8 +122,8 @@ export default function SendCenter(){
       </div>
 
       <div className="vtab-card-body">
-        {loading?<div className="vtab-empty"><div className="vtab-empty-icon"><Icon name="spark"/></div><b>Loading controlled delivery queue…</b></div>:
-        filtered.length===0?<div className="vtab-empty"><div className="vtab-empty-icon"><Icon name="check"/></div><div style={{fontSize:20,fontWeight:900,color:"#183153"}}>No approved outreach waiting</div><p>Messages appear here after human approval. Nothing is released automatically.</p></div>:
+        {loading?<div className="vtab-empty" style={{minHeight:260,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:14,textAlign:"center",padding:"40px 24px"}}><div className="vtab-empty-icon" style={{flex:"0 0 auto"}}><Icon name="spark"/></div><b style={{fontSize:18,lineHeight:1.35}}>Loading controlled delivery queue…</b></div>:
+        filtered.length===0?<div className="vtab-empty" style={{minHeight:300,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:14,textAlign:"center",padding:"48px 24px",width:"100%",boxSizing:"border-box"}}><div className="vtab-empty-icon" style={{flex:"0 0 auto",margin:0}}><Icon name="check"/></div><div style={{fontSize:"clamp(20px,2.2vw,26px)",lineHeight:1.2,fontWeight:900,color:"#183153",maxWidth:560,width:"100%",whiteSpace:"normal",wordBreak:"normal"}}>No approved outreach waiting</div><p style={{margin:0,maxWidth:620,fontSize:"clamp(13px,1.2vw,15px)",lineHeight:1.65,color:"#718096",whiteSpace:"normal"}}>Messages appear here after human approval. Nothing is released automatically.</p></div>:
         <div style={{display:"grid",gap:14}}>{filtered.map(item=>{
           const recipient=item.recipient||{};const isBusy=busy===item.id;
           return <article key={item.id} style={{border:"1px solid rgba(148,163,184,.27)",borderRadius:18,padding:18,background:"linear-gradient(180deg,#fff,#fbfdff)",boxShadow:"0 8px 24px rgba(15,23,42,.055)"}}>
