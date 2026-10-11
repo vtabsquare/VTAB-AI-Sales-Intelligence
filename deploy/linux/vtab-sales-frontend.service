@@ -1,0 +1,20 @@
+[Unit]
+Description=VTAB AI Sales Intelligence Frontend
+After=network-online.target vtab-sales-backend.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=vtabsales
+Group=vtabsales
+WorkingDirectory=/opt/vtab-sales/frontend
+Environment=NODE_ENV=production
+Environment=PORT=3000
+ExecStart=/usr/bin/npm run start -- --hostname 127.0.0.1 --port 3000
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
