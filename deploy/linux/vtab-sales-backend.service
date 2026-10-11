@@ -1,0 +1,19 @@
+[Unit]
+Description=VTAB AI Sales Intelligence Backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=vtabsales
+Group=vtabsales
+WorkingDirectory=/opt/vtab-sales/backend
+EnvironmentFile=/etc/vtab-sales/backend.env
+ExecStart=/opt/vtab-sales/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8001
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
