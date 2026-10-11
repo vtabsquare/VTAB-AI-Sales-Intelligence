@@ -1,0 +1,19 @@
+[Unit]
+Description=VTAB AI Sales Intelligence Scheduler Worker
+After=network-online.target vtab-sales-backend.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=vtabsales
+Group=vtabsales
+WorkingDirectory=/opt/vtab-sales/backend
+EnvironmentFile=/etc/vtab-sales/backend.env
+ExecStart=/opt/vtab-sales/backend/.venv/bin/python -m app.worker
+Restart=always
+RestartSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
