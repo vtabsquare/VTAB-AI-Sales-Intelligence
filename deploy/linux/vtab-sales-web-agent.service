@@ -1,0 +1,17 @@
+[Unit]
+Description=VTAB Sales Autonomous Web Agent Worker
+After=network.target vtab-sales-backend.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/vtab-sales-agent/backend
+EnvironmentFile=/opt/vtab-sales-agent/backend/.env
+ExecStart=/opt/vtab-sales-agent/backend/.venv/bin/python -m app.web_agent_worker
+Restart=always
+RestartSec=10
+Environment=PYTHONUNBUFFERED=1
+Environment=WEB_AGENT_POLL_SECONDS=300
+
+[Install]
+WantedBy=multi-user.target
