@@ -23,9 +23,13 @@ class WebSource(Base):
     success_rate: Mapped[float] = mapped_column(Float, default=0.0)
     opportunities_found: Mapped[int] = mapped_column(Integer, default=0)
     failure_count: Mapped[int] = mapped_column(Integer, default=0)
+    health_status: Mapped[str] = mapped_column(String(40), default="READY")
+    last_error: Mapped[str | None] = mapped_column(Text)
+    last_error_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     last_scan_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     next_scan_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
 
 
 class WebAgentRun(Base):
@@ -72,3 +76,19 @@ class AgentApproval(Base):
     status: Mapped[str] = mapped_column(String(30), default="pending")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
     decided_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class WebAgentSettings(Base):
+    __tablename__ = "web_agent_settings"
+
+    id: Mapped[str] = mapped_column(String(40), primary_key=True, default="default")
+    enabled: Mapped[bool] = mapped_column(Boolean, default=True)
+    browser_concurrency: Mapped[int] = mapped_column(Integer, default=1)
+    max_pages_per_source: Mapped[int] = mapped_column(Integer, default=4)
+    retry_count: Mapped[int] = mapped_column(Integer, default=1)
+    timeout_seconds: Mapped[int] = mapped_column(Integer, default=45)
+    auto_qualification: Mapped[bool] = mapped_column(Boolean, default=True)
+    auto_research: Mapped[bool] = mapped_column(Boolean, default=True)
+    auto_draft: Mapped[bool] = mapped_column(Boolean, default=True)
+    auto_send: Mapped[bool] = mapped_column(Boolean, default=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
