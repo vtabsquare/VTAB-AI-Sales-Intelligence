@@ -8,6 +8,7 @@ from app.models import sales_followup as _sales_followup  # noqa: F401
 from app.models import platform as _platform  # noqa: F401
 from app.models import intelligence as _intelligence  # noqa: F401
 from app.models import sales_agent as _sales_agent  # noqa: F401
+from app.models import web_agent as _web_agent  # noqa: F401
 
 from app.api.sales_manager_routes import r as sales_manager_router
 from app.api.intelligence_routes import r as intelligence_router
@@ -18,10 +19,11 @@ from app.api.platform_routes import r as platform_router
 from app.api.auth_routes import r as auth_router
 from app.api.outreach_guardrails_routes import r as outreach_guardrails_router
 from app.api.policy_guardrails_routes import r as policy_guardrails_router
+from app.api.web_agent_routes import r as web_agent_router
 
 app = FastAPI(
-    title="VTAB Global Opportunity Agent",
-    version="0.3.0",
+    title="VTAB Autonomous Sales & Website Intelligence Agent",
+    version="0.4.0",
 )
 
 app.add_middleware(
@@ -61,8 +63,8 @@ def startup() -> None:
         from app.services.schema_compat import ensure_platform_schema
         ensure_platform_schema()
 
-    # Governance baseline: never permit automatic initial outreach or automatic replies.
-    # The agent may discover, qualify, research and draft automatically; delivery stays human-controlled.
+    # Governance baseline: discovery, research, qualification and drafting may be automatic;
+    # initial outbound delivery and automatic replies remain human-controlled by default.
     try:
         from app.models.db import SessionLocal
         from app.services.sales_manager import policy_for
@@ -102,6 +104,7 @@ app.include_router(sales_intelligence_router)
 app.include_router(integration_router)
 app.include_router(platform_router)
 app.include_router(sales_manager_router)
+app.include_router(web_agent_router)
 
 
 @app.on_event("shutdown")
