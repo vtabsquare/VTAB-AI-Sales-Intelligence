@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.models.db import Base, engine
 
-# Import all SQLAlchemy models BEFORE Base.metadata.create_all().
 from app.models import entities as _entities  # noqa: F401
 from app.models import sales_followup as _sales_followup  # noqa: F401
 from app.models import platform as _platform  # noqa: F401
@@ -18,6 +17,7 @@ from app.api.integration_routes import r as integration_router
 from app.api.platform_routes import r as platform_router
 from app.api.auth_routes import r as auth_router
 from app.api.outreach_guardrails_routes import r as outreach_guardrails_router
+from app.api.policy_guardrails_routes import r as policy_guardrails_router
 
 app = FastAPI(
     title="VTAB Global Opportunity Agent",
@@ -60,6 +60,29 @@ def startup() -> None:
         Base.metadata.create_all(bind=engine)
         from app.services.schema_compat import ensure_platform_schema
         ensure_platform_schema()
+
+    # Governance baseline: never permit automatic initial outreach or automatic replies.
+    # The agent may discover, qualify, research and draft automatically; delivery stays human-controlled.
+    try:
+        from app.models.db import SessionLocal
+        from app.services.sales_manager import policy_for
+        db = SessionLocal()
+        try:
+            policy = policy_for(db)
+            changed = False
+            if policy.auto_initial_outreach:
+                policy.auto_initial_outreach = False
+                changed = True
+            if policy.auto_acknowledge:
+                policy.auto_acknowledge = False
+                changed = True
+            if changed:
+                db.commit()
+        finally:
+            db.close()
+    except Exception:
+        pass
+
     if not settings.scheduler_enabled:
         return
     from apscheduler.schedulers.background import BackgroundScheduler
@@ -74,6 +97,7 @@ app.include_router(intelligence_router)
 app.include_router(auth_router)
 app.include_router(core_router)
 app.include_router(outreach_guardrails_router)
+app.include_router(policy_guardrails_router)
 app.include_router(sales_intelligence_router)
 app.include_router(integration_router)
 app.include_router(platform_router)
