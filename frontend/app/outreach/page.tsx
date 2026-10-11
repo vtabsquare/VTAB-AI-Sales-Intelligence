@@ -16,7 +16,7 @@ type Provider={demo_mode:boolean;provider:string;configured:boolean;sender?:stri
 
 function Icon({name}:{name:"send"|"shield"|"user"|"check"|"refresh"|"search"|"mail"|"spark"}){
   const p:Record<string,string>={
-    send:"M22 2 11 13",shield:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z",user:"M20 21a8 8 0 0 0-16 0 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z",check:"m20 6-11 11 11-5-5",refresh:"M20 11a8 8 0 1 0-2.34 5.66 M20 4v7h-7",search:"m21 21-4.35-4.35 M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z",mail:"M4 4h16v16H4z M22 6l-10 7L2 6",spark:"M12 3l1.9 4.1L18 9l-4.1 1.9L12 15l-1.9-4.1L6 9l4.1-1.9L12 3Z"
+    send:"M22 2 11 13",shield:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z",user:"M20 21a8 8 0 0 0-16 0 M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z",check:"m20 6-11 11-5-5",refresh:"M20 11a8 8 0 1 0-2.34 5.66 M20 4v7h-7",search:"m21 21-4.35-4.35 M19 11a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z",mail:"M4 4h16v16H4z M22 6l-10 7L2 6",spark:"M12 3l1.9 4.1L18 9l-4.1 1.9L12 15l-1.9-4.1L6 9l4.1-1.9L12 3Z"
   };
   return <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d={p[name]}/></svg>;
 }
