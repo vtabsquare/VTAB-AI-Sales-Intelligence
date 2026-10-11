@@ -18,7 +18,8 @@ class Settings(BaseSettings):
             url = url.set(drivername="postgresql+psycopg")
         if (url.host or "").endswith(".neon.tech"):
             query = dict(url.query)
-            query["sslmode"] = "verify-full"
+            query["sslmode"] = "require"
+            query.pop("sslrootcert", None)
             url = url.set(query=query)
         return url.render_as_string(hide_password=False)
 
